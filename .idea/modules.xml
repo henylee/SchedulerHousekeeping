@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Scheduler&amp;housekeeping.iml" filepath="$PROJECT_DIR$/Scheduler&amp;housekeeping.iml" />
+      <module fileurl="file://C:\Users\user\AndroidStudioProjects\SchedulerHousekeeping\Scheduler&amp;housekeeping.iml" filepath="C:\Users\user\AndroidStudioProjects\SchedulerHousekeeping\Scheduler&amp;housekeeping.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SchedulerHousekeeping.iml" filepath="$PROJECT_DIR$/SchedulerHousekeeping.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
