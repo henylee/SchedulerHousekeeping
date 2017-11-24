@@ -1,22 +1,27 @@
 package tje.co.kr.schedulerhousekeeping;
 
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.github.tibolte.agendacalendarview.models.BaseCalendarEvent;
-import com.github.tibolte.agendacalendarview.models.CalendarEvent;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends BaseActivity {
+
+    private com.github.sundeepk.compactcalendarview.CompactCalendarView compactcalendarview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Event ev1 = new Event(Color.GREEN, 1433701251000L, "Some extra data that I want to store.");
 
         bindViews();
         setupEvents();
@@ -25,54 +30,30 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+        compactcalendarview.setListener(new CompactCalendarView.CompactCalendarViewListener() {
 
+            @Override
+            public void onDayClick(Date dateClicked) {
+                CompactCalendarTab cct;
+                List<Event> events = compactcalendarview.getEvents(dateClicked);
+                Log.d(TAG, "Day was clicked: " + dateClicked + " with events " + events);
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                Log.d(TAG, "Month was scrolled to: " + firstDayOfNewMonth);
+            }
+        });
     }
 
     @Override
     public void setValues() {
-        Calendar minDate = Calendar.getInstance();
-        Calendar maxDate = Calendar.getInstance();
-
-        minDate.add(Calendar.MONTH, -2);
-        minDate.set(Calendar.DAY_OF_MONTH, 1);
-        maxDate.add(Calendar.YEAR, 1);
-
-        List<CalendarEvent> eventList = new ArrayList<>();
-        mockList(eventList);
-
-        mAgendaCalendarView.init(eventList, minDate, maxDate, Locale.getDefault(), this);
-    }
-
-    private void mockList(List<CalendarEvent> eventList) {
-        Calendar startTime1 = Calendar.getInstance();
-        Calendar endTime1 = Calendar.getInstance();
-        endTime1.add(Calendar.MONTH, 1);
-        BaseCalendarEvent event1 = new BaseCalendarEvent("Thibault travels in Iceland", "A wonderful journey!", "Iceland",
-                ContextCompat.getColor(this, R.color.orange_dark), startTime1, endTime1, true);
-        eventList.add(event1);
-
-        Calendar startTime2 = Calendar.getInstance();
-        startTime2.add(Calendar.DAY_OF_YEAR, 1);
-        Calendar endTime2 = Calendar.getInstance();
-        endTime2.add(Calendar.DAY_OF_YEAR, 3);
-        BaseCalendarEvent event2 = new BaseCalendarEvent("Visit to Dalvík", "A beautiful small town", "Dalvík",
-                ContextCompat.getColor(this, R.color.yellow), startTime2, endTime2, true);
-        eventList.add(event2);
-
-        Calendar startTime3 = Calendar.getInstance();
-        Calendar endTime3 = Calendar.getInstance();
-        startTime3.set(Calendar.HOUR_OF_DAY, 14);
-        startTime3.set(Calendar.MINUTE, 0);
-        endTime3.set(Calendar.HOUR_OF_DAY, 15);
-        endTime3.set(Calendar.MINUTE, 0);
-        DrawableCalendarEvent event3 = new DrawableCalendarEvent("Visit of Harpa", "", "Dalvík",
-                ContextCompat.getColor(this, R.color.blue_dark), startTime3, endTime3, false, android.R.drawable.ic_dialog_info);
-        eventList.add(event3);
+        compactcalendarview.setFirstDayOfWeek(Calendar.MONDAY);
     }
 
     @Override
     public void bindViews() {
+        this.compactcalendarview = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
 
     }
-
 }
