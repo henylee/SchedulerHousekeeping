@@ -26,7 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.github.sundeepk:compact-calendar-view:2.0.2.2'
-    compile 'com.github.sundeepk:compact-calendar-view:2.0.3-beta'
+    compile 'com.applandeo:material-calendar-view:1.0.1'
+    compile 'com.android.support:design:23.1.1'
     testCompile 'junit:junit:4.12'
 }
