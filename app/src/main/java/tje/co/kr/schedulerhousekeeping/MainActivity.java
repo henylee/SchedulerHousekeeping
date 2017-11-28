@@ -13,6 +13,8 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.rd.PageIndicatorView;
 
 import com.applandeo.materialcalendarview.CalendarView;
@@ -71,6 +73,16 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 dlactivitymaindrawer.openDrawer(llll);
+            }
+        });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dlactivitymaindrawer.closeDrawer(llll);
+                beforeLoginLayout.setVisibility(View.GONE);
+                afterLoginLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(mContext, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -136,17 +148,6 @@ public class MainActivity extends BaseActivity {
         this.llll = (LinearLayout) findViewById(R.id.llll);
         this.afterLoginLayout = (LinearLayout) findViewById(R.id.afterLoginLayout);
         this.serviceLayout2 = (LinearLayout) findViewById(R.id.serviceLayout2);
-        this.expandMenuListView = (ExpandableListView) findViewById(R.id.expandMenuListView);
-        this.carNumTxt = (TextView) findViewById(R.id.carNumTxt);
-        this.imageView = (ImageView) findViewById(R.id.imageView);
-        this.emailTxt = (TextView) findViewById(R.id.emailTxt);
-        this.phoneNumTxt = (TextView) findViewById(R.id.phoneNumTxt);
-        this.userTicketLayout = (LinearLayout) findViewById(R.id.userTicketLayout);
-        this.pageIndicatorView = (com.rd.PageIndicatorView) findViewById(R.id.pageIndicatorView);
-        this.ticketViewPager = (ViewPager) findViewById(R.id.ticketViewPager);
-        this.noTicketLayout = (LinearLayout) findViewById(R.id.noTicketLayout);
-        this.closeBtn2 = (ImageView) findViewById(R.id.close_Btn2);
-        this.cashTxt = (TextView) findViewById(R.id.cashTxt);
         this.beforeLoginLayout = (LinearLayout) findViewById(R.id.beforeLoginLayout);
         this.signUpBtn = (TextView) findViewById(R.id.signUpBtn);
         this.loginBtn = (TextView) findViewById(R.id.loginBtn);

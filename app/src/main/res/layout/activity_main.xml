@@ -15,26 +15,25 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <com.applandeo.materialcalendarview.CalendarView
-            android:id="@+id/calendarView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp"
-            app:headerColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_gravity="right"
-            android:src="@drawable/ic_add_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            <com.applandeo.materialcalendarview.CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:headerColor="@color/colorPrimary"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="right|bottom"
+                android:src="@drawable/ic_add_white_24dp"/>
+
+        </FrameLayout>
 
         <!-- 햄버거 로그인 화면 -->
 
@@ -175,20 +174,6 @@
                     android:text="아직 회원이 아니신가요?"
                     android:textColor="#FFFFFF" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="#D2D3D5" />
-
-                </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -198,49 +183,34 @@
                 android:background="@color/themeColor"
                 android:orientation="vertical">
 
-                <FrameLayout
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:orientation="horizontal">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="이름"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="보유 Cash"
-                            android:textColor="#FFFFFF"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="님 안녕하세요."
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/cashTxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="@drawable/hambuger_cash_box"
-                            android:padding="10dp"
-                            android:text="4,200원"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/close_Btn2"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="right"
-                        android:src="@drawable/x_img"
-                        android:tag="2" />
-
-                </FrameLayout>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -252,61 +222,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:text="보유 주차권"
+                    android:layout_marginBottom="10dp"
+                    android:text="오늘 할일"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <FrameLayout
+                <ListView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:id="@+id/noTicketLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="보유 주차권이 없습니다."
-                            android:textColor="@color/white"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/userTicketLayout"
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <android.support.v4.view.ViewPager
-                            android:id="@+id/ticketViewPager"
-                            android:layout_width="210dp"
-                            android:layout_height="80dp" />
-
-                        <com.rd.PageIndicatorView
-                            android:id="@+id/pageIndicatorView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            attrs:piv_viewPager="@+id/viewPager" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:text="보유 주차권 목록"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp" />
+                </ListView>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -317,112 +243,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="회원 정보"
+                    android:layout_marginBottom="10dp"
+                    android:text="오늘 지출"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <LinearLayout
+                <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/hamburger_call_img" />
-
-                    <TextView
-                        android:id="@+id/phoneNumTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:text="010 - 1234 - 5678"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:background="#D2D3D5" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/hamburger_emaill_img" />
-
-                    <TextView
-                        android:id="@+id/emailTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:text="TIS@TIS.com"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:background="#D2D3D5" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/hamburger_car_num_img" />
-
-                    <TextView
-                        android:id="@+id/carNumTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:text="서울12 가3456"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                </ListView>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:layout_marginTop="10dp"
                     android:background="#D2D3D5" />
-
-                <ExpandableListView
-                    android:id="@+id/expandMenuListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></ExpandableListView>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -432,14 +269,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="#D2D3D5" />
 
                     <LinearLayout
                         android:id="@+id/serviceLayout2"
