@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by joeun on 2017-11-24.
  */
 
-public class scheduler implements Serializable {
+public class Scheduler implements Serializable {
 
     private String title;
     private String location;
@@ -16,11 +16,11 @@ public class scheduler implements Serializable {
     private float lat;
     private float lng;
 
-    public scheduler() {
+    public Scheduler() {
 
     }
 
-    public scheduler(String title, String location, Date start_date, Date end_date, float lat, float lng) {
+    public Scheduler(String title, String location, Date start_date, Date end_date, float lat, float lng) {
         this.title = title;
         this.location = location;
         this.start_date = start_date;
