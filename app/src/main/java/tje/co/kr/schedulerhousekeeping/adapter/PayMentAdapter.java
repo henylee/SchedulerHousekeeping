@@ -11,20 +11,20 @@ import android.widget.ArrayAdapter;
 import java.util.List;
 
 import tje.co.kr.schedulerhousekeeping.R;
-import tje.co.kr.schedulerhousekeeping.data.Scheduler;
+import tje.co.kr.schedulerhousekeeping.data.Payment;
 
 /**
  * Created by asqaw on 2017-11-28.
  */
 
-public class CalendarAdapter extends ArrayAdapter<Scheduler> {
+public class PayMentAdapter extends ArrayAdapter<Payment> {
 
     Context mContext;
-    List<Scheduler> mList;
+    List<Payment> mList;
     LayoutInflater inf;
 
-    public CalendarAdapter(Context context, List<Scheduler> list) {
-        super(context, R.layout.schedul_list_item, list);
+    public PayMentAdapter(Context context, List<Payment> list) {
+        super(context, R.layout.payment_list_item, list);
 
         mContext=context;
         mList=list;
@@ -37,7 +37,7 @@ public class CalendarAdapter extends ArrayAdapter<Scheduler> {
         View row=convertView;
 
         if (row==null) {
-            row=inf.inflate(R.layout.schedul_list_item, null);
+            row=inf.inflate(R.layout.payment_list_item, null);
         }
         return row;
     }

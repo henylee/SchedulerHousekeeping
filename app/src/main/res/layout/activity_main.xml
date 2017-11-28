@@ -229,6 +229,7 @@
                     android:textStyle="bold" />
 
                 <ListView
+                    android:id="@+id/todaySchedulList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -251,6 +252,7 @@
                     android:textStyle="bold" />
 
                 <ListView
+                    android:id="@+id/todayPayList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

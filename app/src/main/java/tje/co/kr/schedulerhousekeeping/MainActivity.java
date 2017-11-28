@@ -3,19 +3,16 @@ package tje.co.kr.schedulerhousekeeping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.rd.PageIndicatorView;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
@@ -23,6 +20,11 @@ import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
+import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
+import tje.co.kr.schedulerhousekeeping.data.Payment;
+import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 
 public class MainActivity extends BaseActivity {
 
@@ -39,21 +41,16 @@ public class MainActivity extends BaseActivity {
     private android.widget.TextView loginBtn;
     private android.widget.TextView signUpBtn;
     private android.widget.LinearLayout beforeLoginLayout;
-    private android.widget.TextView cashTxt;
-    private android.widget.ImageView closeBtn2;
-    private android.widget.LinearLayout noTicketLayout;
-    private android.support.v4.view.ViewPager ticketViewPager;
-    private com.rd.PageIndicatorView pageIndicatorView;
-    private android.widget.LinearLayout userTicketLayout;
-    private android.widget.TextView phoneNumTxt;
-    private android.widget.TextView emailTxt;
-    private android.widget.ImageView imageView;
-    private android.widget.TextView carNumTxt;
-    private android.widget.ExpandableListView expandMenuListView;
-    private android.widget.LinearLayout serviceLayout2;
     private android.widget.LinearLayout afterLoginLayout;
     private android.widget.LinearLayout llll;
     private android.support.v4.widget.DrawerLayout dlactivitymaindrawer;
+    private LinearLayout serviceLayout2;
+    private android.widget.ListView todaySchedulList;
+    List<Scheduler> mSchedul = new ArrayList<>();
+    CalendarAdapter mCalendar;
+    private ListView todayPayList;
+    List<Payment> mPay=new ArrayList<>();
+    PayMentAdapter mPayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +136,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-
+        mCalendar = new CalendarAdapter(mContext, mSchedul);
+        todaySchedulList.setAdapter(mCalendar);
+        mPayAdapter=new PayMentAdapter(mContext, mPay);
+        todayPayList.setAdapter(mPayAdapter);
     }
 
     @Override
@@ -148,6 +148,8 @@ public class MainActivity extends BaseActivity {
         this.llll = (LinearLayout) findViewById(R.id.llll);
         this.afterLoginLayout = (LinearLayout) findViewById(R.id.afterLoginLayout);
         this.serviceLayout2 = (LinearLayout) findViewById(R.id.serviceLayout2);
+        this.todayPayList = (ListView) findViewById(R.id.todayPayList);
+        this.todaySchedulList = (ListView) findViewById(R.id.todaySchedulList);
         this.beforeLoginLayout = (LinearLayout) findViewById(R.id.beforeLoginLayout);
         this.signUpBtn = (TextView) findViewById(R.id.signUpBtn);
         this.loginBtn = (TextView) findViewById(R.id.loginBtn);
