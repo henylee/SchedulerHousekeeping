@@ -34,7 +34,7 @@ public class MySMSReceiver extends BroadcastReceiver {
                 Log.d("content", content);
 
                 if (sender.equals("1644-9999")) {
-                    Log.d("문자내용", content.toString());
+
                 }
             }
         }

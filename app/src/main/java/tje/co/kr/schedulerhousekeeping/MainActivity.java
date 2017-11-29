@@ -1,5 +1,6 @@
 package tje.co.kr.schedulerhousekeeping;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,10 +70,29 @@ public class MainActivity extends BaseActivity {
         intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
         registerReceiver(mBroad, intentFilter);
 
+        TedPermission.with(this)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
+                .check();
+
         bindViews();
         setupEvents();
         setValues();
     }
+
+    PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+            Toast.makeText(mContext, "권한 허가", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            Toast.makeText(mContext, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+    };
 
     @Override
     protected void onDestroy() {
