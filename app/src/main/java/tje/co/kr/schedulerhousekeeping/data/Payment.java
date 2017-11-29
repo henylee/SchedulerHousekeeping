@@ -1,8 +1,7 @@
 package tje.co.kr.schedulerhousekeeping.data;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Timer;
+import java.util.Calendar;
 
 /**
  * Created by asqaw on 2017-11-28.
@@ -12,18 +11,16 @@ public class Payment implements Serializable {
 
     private String storeName;
     private int cost;
-    private Date day;
-    private Timer time;
+    private Calendar dateTime;
 
     public Payment() {
 
     }
 
-    public Payment(String storeName, int cost, Date day, Timer time) {
+    public Payment(String storeName, int cost, Calendar dateTime) {
         this.storeName = storeName;
         this.cost = cost;
-        this.day = day;
-        this.time = time;
+        this.dateTime = dateTime;
     }
 
     public String getStoreName() {
@@ -42,19 +39,11 @@ public class Payment implements Serializable {
         this.cost = cost;
     }
 
-    public Date getDay() {
-        return day;
+    public Calendar getDateTime() {
+        return dateTime;
     }
 
-    public void setDay(Date day) {
-        this.day = day;
-    }
-
-    public Timer getTime() {
-        return time;
-    }
-
-    public void setTime(Timer time) {
-        this.time = time;
+    public void setDateTime(Calendar dateTime) {
+        this.dateTime = dateTime;
     }
 }

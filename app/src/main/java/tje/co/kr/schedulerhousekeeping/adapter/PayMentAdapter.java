@@ -50,7 +50,7 @@ public class PayMentAdapter extends ArrayAdapter<Payment> {
         TextView costTxt = (TextView) row.findViewById(R.id.costTxt);
 
         storeNameTxt.setText(data.getStoreName());
-        timeTxt.setText(data.getTime()+"");
+        timeTxt.setText(data.getDateTime()+"");
         costTxt.setText(data.getCost()+"원");
 
         return row;

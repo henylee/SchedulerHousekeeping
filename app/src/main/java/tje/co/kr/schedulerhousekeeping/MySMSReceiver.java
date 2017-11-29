@@ -8,17 +8,21 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
 
 public class MySMSReceiver extends BroadcastReceiver {
 
     static List<Payment> listPay = new ArrayList<>();
+    PayMentAdapter mAdapter;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -47,10 +51,24 @@ public class MySMSReceiver extends BroadcastReceiver {
                     String[] message = content.split("\n");
 
                     String store = message[3];
-                    String costTxt = String.format(Locale.KOREA, "%d원", message[5]);
+                    String costTxt = message[5];
                     int cost = Integer.parseInt(costTxt);
-                    String date = message[1].split(" ")[0];
-                    String time = message[1].split(" ")[1];
+                    String dateStr = message[1].split(" ")[0];
+                    String timeStr = message[1].split(" ")[1];
+                    String parse = dateStr+" "+timeStr;
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
+                    Date date=new Date();
+                    try {
+                        date=sdf.parse(parse);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    Calendar temp = Calendar.getInstance();
+                    temp.setTime(date);
+                    listPay.add(new Payment(store, cost, temp));
+                    mAdapter.notifyDataSetChanged();
 
                 }
             }
