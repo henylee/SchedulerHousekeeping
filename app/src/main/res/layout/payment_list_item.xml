@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/storeNameTxt"
             android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,12 +23,14 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/timeTxt"
                 android:textColor="#ffffff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="시간" />
 
             <TextView
+                android:id="@+id/costTxt"
                 android:textColor="#ffffff"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"

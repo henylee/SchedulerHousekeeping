@@ -2,6 +2,7 @@ package tje.co.kr.schedulerhousekeeping.data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Timer;
 
 /**
  * Created by asqaw on 2017-11-28.
@@ -10,19 +11,19 @@ import java.util.Date;
 public class Payment implements Serializable {
 
     private String storeName;
-    private String pay;
     private int cost;
     private Date day;
+    private Timer time;
 
     public Payment() {
 
     }
 
-    public Payment(String storeName, String pay, int cost, Date day) {
+    public Payment(String storeName, int cost, Date day, Timer time) {
         this.storeName = storeName;
-        this.pay = pay;
         this.cost = cost;
         this.day = day;
+        this.time = time;
     }
 
     public String getStoreName() {
@@ -31,14 +32,6 @@ public class Payment implements Serializable {
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
-    }
-
-    public String getPay() {
-        return pay;
-    }
-
-    public void setPay(String pay) {
-        this.pay = pay;
     }
 
     public int getCost() {
@@ -55,5 +48,13 @@ public class Payment implements Serializable {
 
     public void setDay(Date day) {
         this.day = day;
+    }
+
+    public Timer getTime() {
+        return time;
+    }
+
+    public void setTime(Timer time) {
+        this.time = time;
     }
 }

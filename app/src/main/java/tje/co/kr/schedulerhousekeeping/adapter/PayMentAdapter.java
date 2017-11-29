@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
+import tje.co.kr.schedulerhousekeeping.MySMSReceiver;
 import tje.co.kr.schedulerhousekeeping.R;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
 
@@ -22,6 +24,7 @@ public class PayMentAdapter extends ArrayAdapter<Payment> {
     Context mContext;
     List<Payment> mList;
     LayoutInflater inf;
+    MySMSReceiver mReceiver;
 
     public PayMentAdapter(Context context, List<Payment> list) {
         super(context, R.layout.payment_list_item, list);
@@ -39,11 +42,18 @@ public class PayMentAdapter extends ArrayAdapter<Payment> {
         if (row==null) {
             row=inf.inflate(R.layout.payment_list_item, null);
         }
+
+        Payment data = mList.get(position);
+
+        TextView storeNameTxt = (TextView) row.findViewById(R.id.storeNameTxt);
+        TextView timeTxt = (TextView) row.findViewById(R.id.timeTxt);
+        TextView costTxt = (TextView) row.findViewById(R.id.costTxt);
+
+        storeNameTxt.setText(data.getStoreName());
+        timeTxt.setText(data.getTime()+"");
+        costTxt.setText(data.getCost()+"원");
+
         return row;
     }
 
-    @Override
-    public int getCount() {
-        return 5;
-    }
 }

@@ -8,7 +8,17 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import tje.co.kr.schedulerhousekeeping.data.Payment;
+
 public class MySMSReceiver extends BroadcastReceiver {
+
+    static List<Payment> listPay = new ArrayList<>();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -33,7 +43,14 @@ public class MySMSReceiver extends BroadcastReceiver {
                 Log.d("send", sender);
                 Log.d("content", content);
 
-                if (sender.equals("1644-9999")) {
+                if (sender.equals("01093453926")) {
+                    String[] message = content.split("\n");
+
+                    String store = message[3];
+                    String costTxt = String.format(Locale.KOREA, "%d원", message[5]);
+                    int cost = Integer.parseInt(costTxt);
+                    String date = message[1].split(" ")[0];
+                    String time = message[1].split(" ")[1];
 
                 }
             }
