@@ -1,6 +1,9 @@
 package tje.co.kr.schedulerhousekeeping;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
@@ -28,6 +31,7 @@ import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 
 public class MainActivity extends BaseActivity {
 
+    BroadcastReceiver mBroad = new MySMSReceiver();
     public static final String RESULT = "result";
     public static final String EVENT = "event";
     private static final int ADD_NOTE = 44;
@@ -57,10 +61,21 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setCustomActionBar();
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
+        intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        registerReceiver(mBroad, intentFilter);
 
         bindViews();
         setupEvents();
         setValues();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroad);
     }
 
     @Override
