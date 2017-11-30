@@ -34,6 +34,8 @@ import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 
 public class MainActivity extends BaseActivity {
 
+    public static MainActivity act;
+
     BroadcastReceiver mBroad = new MySMSReceiver();
     public static final String RESULT = "result";
     public static final String EVENT = "event";
@@ -57,13 +59,15 @@ public class MainActivity extends BaseActivity {
     CalendarAdapter mCalendar;
     private ListView todayPayList;
     List<Payment> mPay=new ArrayList<>();
-    PayMentAdapter mPayAdapter;
+    public PayMentAdapter mPayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setCustomActionBar();
+
+        act = this;
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
@@ -79,6 +83,10 @@ public class MainActivity extends BaseActivity {
         bindViews();
         setupEvents();
         setValues();
+    }
+
+    public void refreshPayList() {
+        mPayAdapter.notifyDataSetChanged();
     }
 
     PermissionListener permissionlistener = new PermissionListener() {

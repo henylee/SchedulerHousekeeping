@@ -67,8 +67,8 @@ public class MySMSReceiver extends BroadcastReceiver {
 
                     Calendar temp = Calendar.getInstance();
                     temp.setTime(date);
-                    listPay.add(new Payment(store, cost, temp));
-                    mAdapter.notifyDataSetChanged();
+
+                    MainActivity.act.refreshPayList();
 
                 }
             }
