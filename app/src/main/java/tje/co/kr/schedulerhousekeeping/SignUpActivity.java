@@ -31,9 +31,8 @@ public class SignUpActivity extends BaseActivity {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MainActivity.class);
-                startActivity(intent);
                 Toast.makeText(mContext, "회원가입을 성공했습니다.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
