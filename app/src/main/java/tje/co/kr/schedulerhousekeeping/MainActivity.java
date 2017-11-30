@@ -2,7 +2,6 @@ package tje.co.kr.schedulerhousekeeping;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -21,6 +20,7 @@ import android.widget.Toast;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -29,7 +29,6 @@ import java.util.List;
 
 import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
-import tje.co.kr.schedulerhousekeeping.data.Payment;
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
@@ -43,7 +42,6 @@ public class MainActivity extends BaseActivity {
     public static final String EVENT = "event";
     private static final int ADD_NOTE = 44;
     private com.applandeo.materialcalendarview.CalendarView calendarView;
-    private android.support.design.widget.FloatingActionButton floatingActionButton;
     private List<EventDay> mEventDays = new ArrayList<>();
     private android.widget.ImageView myProfileImg;
     private android.widget.EditText idEdt;
@@ -142,12 +140,15 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNote();
-            }
-        });
+        Fab fab = (Fab) findViewById(R.id.fab);
+        View sheetView = findViewById(R.id.fab_sheet);
+        View overlay = findViewById(R.id.overlay);
+        int sheetColor = getResources().getColor(R.color.fab_sheet_color);
+        int fabColor = getResources().getColor(R.color.fab_color);
+
+        // Initialize material sheet FAB
+        MaterialSheetFab materialSheetFab = new MaterialSheetFab<>(fab, sheetView, overlay,
+                sheetColor, fabColor);
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
@@ -216,7 +217,6 @@ public class MainActivity extends BaseActivity {
         this.pwEdt = (EditText) findViewById(R.id.pwEdt);
         this.idEdt = (EditText) findViewById(R.id.idEdt);
         this.myProfileImg = (ImageView) findViewById(R.id.myProfileImg);
-        this.floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         this.calendarView = (CalendarView) findViewById(R.id.calendarView);
     }
 }
