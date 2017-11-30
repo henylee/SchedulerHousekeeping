@@ -52,7 +52,8 @@ public class MySMSReceiver extends BroadcastReceiver {
 
                     String store = message[3];
                     String costTxt = message[5];
-                    int cost = Integer.parseInt(costTxt);
+                    String tempTxt= costTxt.replace(",","");
+                    int cost = Integer.parseInt(tempTxt);
                     String dateStr = message[1].split(" ")[0];
                     String timeStr = message[1].split(" ")[1];
                     String parse = dateStr+" "+timeStr;
@@ -67,6 +68,8 @@ public class MySMSReceiver extends BroadcastReceiver {
 
                     Calendar temp = Calendar.getInstance();
                     temp.setTime(date);
+
+                    listPay.add(new Payment(store, cost,temp));
 
                     MainActivity.act.refreshPayList();
 

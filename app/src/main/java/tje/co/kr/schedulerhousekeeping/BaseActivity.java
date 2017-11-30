@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
+import java.util.List;
+
+import tje.co.kr.schedulerhousekeeping.data.Payment;
+
 /**
  * Created by joeun on 2017-11-22.
  */

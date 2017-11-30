@@ -31,6 +31,7 @@ import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
+import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 
 public class MainActivity extends BaseActivity {
 
@@ -58,7 +59,6 @@ public class MainActivity extends BaseActivity {
     List<Scheduler> mSchedul = new ArrayList<>();
     CalendarAdapter mCalendar;
     private ListView todayPayList;
-    List<Payment> mPay=new ArrayList<>();
     public PayMentAdapter mPayAdapter;
 
     @Override
@@ -74,11 +74,9 @@ public class MainActivity extends BaseActivity {
         intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
         registerReceiver(mBroad, intentFilter);
 
-        TedPermission.with(this)
-                .setPermissionListener(permissionlistener)
+        TedPermission.with(this).setPermissionListener(permissionlistener)
                 .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-                .setPermissions(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
-                .check();
+                .setPermissions(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS).check();
 
         bindViews();
         setupEvents();
@@ -183,7 +181,7 @@ public class MainActivity extends BaseActivity {
     public void setValues() {
         mCalendar = new CalendarAdapter(mContext, mSchedul);
         todaySchedulList.setAdapter(mCalendar);
-        mPayAdapter=new PayMentAdapter(mContext, mPay);
+        mPayAdapter=new PayMentAdapter(mContext, GlobalData.mPay);
         todayPayList.setAdapter(mPayAdapter);
     }
 
