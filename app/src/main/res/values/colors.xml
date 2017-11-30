@@ -9,9 +9,9 @@
     <color name="white">#ffffff</color>
     <color name="teal500">#009688</color>
     <color name="themeColor">#546CA8</color>
+    <color name="line">#868686</color>
 
-
-    <color name="fab_sheet_color">#FFFF00</color>
+    <color name="fab_sheet_color">#000CB7</color>
     <color name="fab_color">#FF00FF</color>
 
     <array name="note_neutral_colors">

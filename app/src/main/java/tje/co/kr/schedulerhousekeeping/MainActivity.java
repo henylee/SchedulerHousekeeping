@@ -5,8 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.gordonwong.materialsheetfab.DimOverlayFrameLayout;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -59,6 +60,10 @@ public class MainActivity extends BaseActivity {
     CalendarAdapter mCalendar;
     private ListView todayPayList;
     public PayMentAdapter mPayAdapter;
+    private Fab fab;
+    private com.gordonwong.materialsheetfab.DimOverlayFrameLayout overlay;
+    private LinearLayout addDayLayout;
+    private android.support.v7.widget.CardView fabsheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +98,6 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(mContext, "권한 허가", Toast.LENGTH_SHORT).show();
                 ContextUtil.setIsFirstOk(mContext, false);
             }
-
-
         }
 
         @Override
@@ -171,6 +174,14 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        addDayLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AddNoteActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -217,6 +228,10 @@ public class MainActivity extends BaseActivity {
         this.pwEdt = (EditText) findViewById(R.id.pwEdt);
         this.idEdt = (EditText) findViewById(R.id.idEdt);
         this.myProfileImg = (ImageView) findViewById(R.id.myProfileImg);
+        this.fabsheet = (CardView) findViewById(R.id.fab_sheet);
+        this.addDayLayout = (LinearLayout) findViewById(R.id.addDayLayout);
+        this.overlay = (DimOverlayFrameLayout) findViewById(R.id.overlay);
+        this.fab = (Fab) findViewById(R.id.fab);
         this.calendarView = (CalendarView) findViewById(R.id.calendarView);
     }
 }
