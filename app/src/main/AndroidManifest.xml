@@ -13,9 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <receiver
-            android:name=".MySMSReceiver">
+        <receiver android:name=".MySMSReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
@@ -33,6 +31,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".AddNoteActivity" />
         <activity android:name=".NotePreviewActivity" />
+        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>

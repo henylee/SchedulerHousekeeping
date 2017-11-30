@@ -60,6 +60,7 @@ public class MainActivity extends BaseActivity {
     CalendarAdapter mCalendar;
     private ListView todayPayList;
     public PayMentAdapter mPayAdapter;
+    boolean isFirstOk=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +91,17 @@ public class MainActivity extends BaseActivity {
     PermissionListener permissionlistener = new PermissionListener() {
         @Override
         public void onPermissionGranted() {
-            Toast.makeText(mContext, "권한 허가", Toast.LENGTH_SHORT).show();
+            if (!isFirstOk) {
+                Toast.makeText(mContext, "권한 허가", Toast.LENGTH_SHORT).show();
+                isFirstOk=true;
+            }
+
+
         }
 
         @Override
         public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            isFirstOk=false;
             Toast.makeText(mContext, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
         }
 
@@ -108,6 +115,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SignUpActivity.class);
+                startActivity(intent);
+                dlactivitymaindrawer.closeDrawer(llll);
+            }
+        });
 
         hamburgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
