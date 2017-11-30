@@ -64,6 +64,11 @@ public class MainActivity extends BaseActivity {
     private com.gordonwong.materialsheetfab.DimOverlayFrameLayout overlay;
     private LinearLayout addDayLayout;
     private android.support.v7.widget.CardView fabsheet;
+    private LinearLayout paymentLayout;
+    private LinearLayout myProfileLayout;
+
+    private final long FINSH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,13 +167,11 @@ public class MainActivity extends BaseActivity {
         llll.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent Event) {
-                if (Event.getAction()==MotionEvent.ACTION_DOWN) {
+                if (Event.getAction() == MotionEvent.ACTION_DOWN) {
                     return true;
-                }
-                else if (Event.getAction()==MotionEvent.ACTION_MOVE) {
+                } else if (Event.getAction() == MotionEvent.ACTION_MOVE) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             }
@@ -178,6 +181,22 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, AddNoteActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        paymentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PayMentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        myProfileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MyProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -193,13 +212,15 @@ public class MainActivity extends BaseActivity {
             calendarView.setEvents(mEventDays);
         }
     }
+
     private void addNote() {
         Intent intent = new Intent(this, AddNoteActivity.class);
         startActivityForResult(intent, ADD_NOTE);
     }
+
     private void previewNote(EventDay eventDay) {
         Intent intent = new Intent(this, NotePreviewActivity.class);
-        if(eventDay instanceof MyEventDay){
+        if (eventDay instanceof MyEventDay) {
             intent.putExtra(EVENT, (MyEventDay) eventDay);
         }
         startActivity(intent);
@@ -209,8 +230,22 @@ public class MainActivity extends BaseActivity {
     public void setValues() {
         mCalendar = new CalendarAdapter(mContext, mSchedul);
         todaySchedulList.setAdapter(mCalendar);
-        mPayAdapter=new PayMentAdapter(mContext, GlobalData.mPay);
+        mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
         todayPayList.setAdapter(mPayAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime-backPressedTime;
+
+        if (0<=intervalTime&&FINSH_INTERVAL_TIME>=intervalTime) {
+            super.onBackPressed();
+        }
+        else {
+            backPressedTime=tempTime;
+            Toast.makeText(act, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -229,6 +264,8 @@ public class MainActivity extends BaseActivity {
         this.idEdt = (EditText) findViewById(R.id.idEdt);
         this.myProfileImg = (ImageView) findViewById(R.id.myProfileImg);
         this.fabsheet = (CardView) findViewById(R.id.fab_sheet);
+        this.myProfileLayout = (LinearLayout) findViewById(R.id.myProfileLayout);
+        this.paymentLayout = (LinearLayout) findViewById(R.id.paymentLayout);
         this.addDayLayout = (LinearLayout) findViewById(R.id.addDayLayout);
         this.overlay = (DimOverlayFrameLayout) findViewById(R.id.overlay);
         this.fab = (Fab) findViewById(R.id.fab);
