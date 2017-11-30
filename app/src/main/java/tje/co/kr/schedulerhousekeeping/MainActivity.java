@@ -31,6 +31,7 @@ import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
+import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 
 public class MainActivity extends BaseActivity {
@@ -60,7 +61,6 @@ public class MainActivity extends BaseActivity {
     CalendarAdapter mCalendar;
     private ListView todayPayList;
     public PayMentAdapter mPayAdapter;
-    boolean isFirstOk=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +91,9 @@ public class MainActivity extends BaseActivity {
     PermissionListener permissionlistener = new PermissionListener() {
         @Override
         public void onPermissionGranted() {
-            if (!isFirstOk) {
+            if (ContextUtil.isFirstOk(mContext)) {
                 Toast.makeText(mContext, "권한 허가", Toast.LENGTH_SHORT).show();
-                isFirstOk=true;
+                ContextUtil.setIsFirstOk(mContext, false);
             }
 
 
@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-            isFirstOk=false;
+            ContextUtil.setIsFirstOk(mContext, false);
             Toast.makeText(mContext, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
         }
 
