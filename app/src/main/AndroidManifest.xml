@@ -32,7 +32,8 @@
         <activity android:name=".AddNoteActivity" />
         <activity android:name=".NotePreviewActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".PayMentActivity" />
+        <activity
+            android:name=".PayMentActivity"/>
         <activity android:name=".MyProfileActivity"></activity>
     </application>
 
