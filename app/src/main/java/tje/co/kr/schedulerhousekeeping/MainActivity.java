@@ -30,7 +30,6 @@ import java.util.List;
 
 import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
-import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 
@@ -69,6 +68,7 @@ public class MainActivity extends BaseActivity {
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
     private TextView emptyListTxt;
+    private LinearLayout scheduleEmptyLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,7 +230,7 @@ public class MainActivity extends BaseActivity {
     public void setValues() {
         mCalendar = new CalendarAdapter(mContext, GlobalData.mSchedul);
         todaySchedulList.setAdapter(mCalendar);
-        todaySchedulList.setEmptyView(emptyListTxt);
+        todaySchedulList.setEmptyView(scheduleEmptyLayout);
         mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
         todayPayList.setAdapter(mPayAdapter);
     }
@@ -238,13 +238,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         long tempTime = System.currentTimeMillis();
-        long intervalTime = tempTime-backPressedTime;
+        long intervalTime = tempTime - backPressedTime;
 
-        if (0<=intervalTime&&FINSH_INTERVAL_TIME>=intervalTime) {
+        if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
             super.onBackPressed();
-        }
-        else {
-            backPressedTime=tempTime;
+        } else {
+            backPressedTime = tempTime;
             Toast.makeText(act, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -256,6 +255,7 @@ public class MainActivity extends BaseActivity {
         this.afterLoginLayout = (LinearLayout) findViewById(R.id.afterLoginLayout);
         this.serviceLayout2 = (LinearLayout) findViewById(R.id.serviceLayout2);
         this.todayPayList = (ListView) findViewById(R.id.todayPayList);
+        this.scheduleEmptyLayout = (LinearLayout) findViewById(R.id.scheduleEmptyLayout);
         this.emptyListTxt = (TextView) findViewById(R.id.emptyListTxt);
         this.todaySchedulList = (ListView) findViewById(R.id.todaySchedulList);
         this.beforeLoginLayout = (LinearLayout) findViewById(R.id.beforeLoginLayout);

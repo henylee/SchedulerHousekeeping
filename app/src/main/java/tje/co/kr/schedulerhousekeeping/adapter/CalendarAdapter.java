@@ -42,8 +42,4 @@ public class CalendarAdapter extends ArrayAdapter<Scheduler> {
         return row;
     }
 
-    @Override
-    public int getCount() {
-        return 5;
-    }
 }

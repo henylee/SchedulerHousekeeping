@@ -328,11 +328,19 @@
 
                 </ListView>
 
-                <TextView
-                    android:id="@+id/emptyListTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="오늘 일정이 없습니다."/>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/scheduleEmptyLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/emptyListTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오늘 일정이 없습니다."/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
