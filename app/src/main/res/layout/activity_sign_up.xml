@@ -16,14 +16,14 @@
         <EditText
             android:id="@+id/idEdt"
             android:hint="아이디 입력"
-            android:layout_width="280dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/idDupBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="중복화인"/>
+            android:text="중복확인"/>
 
     </LinearLayout>
 
