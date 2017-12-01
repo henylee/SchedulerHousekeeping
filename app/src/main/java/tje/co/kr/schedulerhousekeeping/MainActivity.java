@@ -180,8 +180,7 @@ public class MainActivity extends BaseActivity {
         addDayLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, AddNoteActivity.class);
-                startActivity(intent);
+                addNote();
             }
         });
 
@@ -209,7 +208,10 @@ public class MainActivity extends BaseActivity {
             MyEventDay myEventDay = data.getParcelableExtra(RESULT);
             calendarView.setDate(myEventDay.getCalendar());
             mEventDays.add(myEventDay);
+            GlobalData.mSchedul.add();
+                    no
             calendarView.setEvents(mEventDays);
+
         }
     }
 
