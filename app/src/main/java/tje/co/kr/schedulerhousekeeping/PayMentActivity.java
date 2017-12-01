@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -45,20 +46,22 @@ public class PayMentActivity extends BaseActivity {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
-
                                 mReservationDate.set(Calendar.YEAR, i);
                                 mReservationDate.set(Calendar.MONTH, i1);
                                 mReservationDate.set(Calendar.DAY_OF_MONTH, i2);
 
                             }
-                        },
-                        mReservationDate.get(Calendar.YEAR),
-                        mReservationDate.get(Calendar.MONTH),
-                        mReservationDate.get(Calendar.DAY_OF_MONTH)).show();
+                        }, mReservationDate.get(Calendar.YEAR), mReservationDate.get(Calendar.MONTH), mReservationDate.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
-
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
 
     }
 
