@@ -9,6 +9,9 @@ import android.widget.EditText;
 
 import com.applandeo.materialcalendarview.CalendarView;
 
+import tje.co.kr.schedulerhousekeeping.data.Scheduler;
+import tje.co.kr.schedulerhousekeeping.util.GlobalData;
+
 public class AddNoteActivity extends BaseActivity {
 
     private com.applandeo.materialcalendarview.CalendarView datePicker;
@@ -42,7 +45,7 @@ public class AddNoteActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-
+        GlobalData.mSchedul.add(new Scheduler(noteEditText.getText().toString(), datePicker.getSelectedDate()));
     }
 
     @Override

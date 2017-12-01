@@ -1,6 +1,7 @@
 package tje.co.kr.schedulerhousekeeping;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +31,7 @@ public class PayMentActivity extends BaseActivity {
     private android.widget.Button saveBtn;
     private Button selectCaledarBtn;
     private EditText storeEdt;
+    private Button selectTimeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,24 @@ public class PayMentActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        selectTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        mReservationDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        mReservationDate.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+                        selectTimeBtn.setText(sdf.format(mReservationDate.getTime()));
+
+                    }
+                }, mReservationDate.get(Calendar.HOUR_OF_DAY), mReservationDate.get(Calendar.MINUTE), true).show();
+            }
+        });
 
         selectCaledarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +107,7 @@ public class PayMentActivity extends BaseActivity {
         this.costEdt = (EditText) findViewById(R.id.costEdt);
         this.storeEdt = (EditText) findViewById(R.id.storeEdt);
         this.spiner1 = (Spinner) findViewById(R.id.spiner1);
+        this.selectTimeBtn = (Button) findViewById(R.id.selectTimeBtn);
         this.selectCaledarBtn = (Button) findViewById(R.id.selectCaledarBtn);
         this.payGroup = (RadioGroup) findViewById(R.id.payGroup);
         this.rbBtn2 = (RadioButton) findViewById(R.id.rbBtn2);
