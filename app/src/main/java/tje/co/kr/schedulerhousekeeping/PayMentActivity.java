@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import tje.co.kr.schedulerhousekeeping.data.Payment;
+import tje.co.kr.schedulerhousekeeping.util.GlobalData;
+
 public class PayMentActivity extends BaseActivity {
 
     Calendar mReservationDate = Calendar.getInstance();
@@ -24,6 +27,7 @@ public class PayMentActivity extends BaseActivity {
     private android.widget.EditText costEdt;
     private android.widget.Button saveBtn;
     private Button selectCaledarBtn;
+    private EditText storeEdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class PayMentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                GlobalData.mPay.add(new Payment(storeEdt.getText().toString(), ,costEdt.getText().toString()));
                 finish();
             }
         });
@@ -74,6 +79,7 @@ public class PayMentActivity extends BaseActivity {
     public void bindViews() {
         this.saveBtn = (Button) findViewById(R.id.saveBtn);
         this.costEdt = (EditText) findViewById(R.id.costEdt);
+        this.storeEdt = (EditText) findViewById(R.id.storeEdt);
         this.spiner1 = (Spinner) findViewById(R.id.spiner1);
         this.selectCaledarBtn = (Button) findViewById(R.id.selectCaledarBtn);
         this.payGroup = (RadioGroup) findViewById(R.id.payGroup);
