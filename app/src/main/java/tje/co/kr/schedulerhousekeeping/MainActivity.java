@@ -69,6 +69,7 @@ public class MainActivity extends BaseActivity {
 
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
+    private TextView emptyListTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,6 +231,7 @@ public class MainActivity extends BaseActivity {
     public void setValues() {
         mCalendar = new CalendarAdapter(mContext, mSchedul);
         todaySchedulList.setAdapter(mCalendar);
+        todaySchedulList.setEmptyView(emptyListTxt);
         mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
         todayPayList.setAdapter(mPayAdapter);
     }
@@ -255,6 +257,7 @@ public class MainActivity extends BaseActivity {
         this.afterLoginLayout = (LinearLayout) findViewById(R.id.afterLoginLayout);
         this.serviceLayout2 = (LinearLayout) findViewById(R.id.serviceLayout2);
         this.todayPayList = (ListView) findViewById(R.id.todayPayList);
+        this.emptyListTxt = (TextView) findViewById(R.id.emptyListTxt);
         this.todaySchedulList = (ListView) findViewById(R.id.todaySchedulList);
         this.beforeLoginLayout = (LinearLayout) findViewById(R.id.beforeLoginLayout);
         this.signUpBtn = (TextView) findViewById(R.id.signUpBtn);
