@@ -40,28 +40,25 @@ public class PayMentActivity extends BaseActivity {
         selectCaledarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(mContext).show();
-            }
-        });
-
-        se.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                        mReservationDate.set(Calendar.YEAR, year);
-                        mReservationDate.set(Calendar.MONTH, month);
-                        mReservationDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                new DatePickerDialog(mContext,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
 
-                    }
-                }, mReservationDate.get(Calendar.YEAR),
+                                mReservationDate.set(Calendar.YEAR, i);
+                                mReservationDate.set(Calendar.MONTH, i1);
+                                mReservationDate.set(Calendar.DAY_OF_MONTH, i2);
+
+                            }
+                        },
+                        mReservationDate.get(Calendar.YEAR),
                         mReservationDate.get(Calendar.MONTH),
                         mReservationDate.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+
 
     }
 
