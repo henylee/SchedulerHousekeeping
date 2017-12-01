@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import tje.co.kr.schedulerhousekeeping.data.Payment;
@@ -54,6 +55,10 @@ public class PayMentActivity extends BaseActivity {
                                 mReservationDate.set(Calendar.MONTH, i1);
                                 mReservationDate.set(Calendar.DAY_OF_MONTH, i2);
 
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+
+                                selectCaledarBtn.setText(sdf.format(mReservationDate.getTime()));
+
                             }
                         }, mReservationDate.get(Calendar.YEAR), mReservationDate.get(Calendar.MONTH), mReservationDate.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -63,7 +68,7 @@ public class PayMentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-                GlobalData.mPay.add(new Payment(storeEdt.getText().toString(), ,costEdt.getText().toString()));
+                GlobalData.mPay.add(new Payment(storeEdt.getText().toString(), Integer.parseInt(costEdt.getText().toString()), mReservationDate));
                 finish();
             }
         });
