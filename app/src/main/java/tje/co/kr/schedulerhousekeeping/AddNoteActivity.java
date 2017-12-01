@@ -38,6 +38,7 @@ public class AddNoteActivity extends BaseActivity {
                         R.drawable.ic_message_black_48dp, noteEditText.getText().toString());
                 returnIntent.putExtra(MainActivity.RESULT, myEventDay);
                 setResult(Activity.RESULT_OK, returnIntent);
+                GlobalData.mSchedul.add(new Scheduler(noteEditText.getText().toString(), datePicker.getSelectedDate()));
                 finish();
             }
         });
@@ -45,7 +46,7 @@ public class AddNoteActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-        GlobalData.mSchedul.add(new Scheduler(noteEditText.getText().toString(), datePicker.getSelectedDate()));
+
     }
 
     @Override

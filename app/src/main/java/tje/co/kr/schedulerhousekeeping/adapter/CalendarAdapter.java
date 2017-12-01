@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import tje.co.kr.schedulerhousekeeping.R;
@@ -39,6 +41,16 @@ public class CalendarAdapter extends ArrayAdapter<Scheduler> {
         if (row==null) {
             row=inf.inflate(R.layout.schedul_list_item, null);
         }
+
+        Scheduler data = mList.get(position);
+
+        TextView contentTxt = (TextView) row.findViewById(R.id.contentTxt);
+        TextView dateTxt = (TextView) row.findViewById(R.id.dateTxt);
+
+        contentTxt.setText(data.getContent());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+        dateTxt.setText(sdf.format(data.getDateTime().getTime()));
+
         return row;
     }
 
