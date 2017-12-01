@@ -56,7 +56,6 @@ public class MainActivity extends BaseActivity {
     private android.support.v4.widget.DrawerLayout dlactivitymaindrawer;
     private LinearLayout serviceLayout2;
     private android.widget.ListView todaySchedulList;
-    List<Scheduler> mSchedul = new ArrayList<>();
     CalendarAdapter mCalendar;
     private ListView todayPayList;
     public PayMentAdapter mPayAdapter;
@@ -229,7 +228,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-        mCalendar = new CalendarAdapter(mContext, mSchedul);
+        mCalendar = new CalendarAdapter(mContext, GlobalData.mSchedul);
         todaySchedulList.setAdapter(mCalendar);
         todaySchedulList.setEmptyView(emptyListTxt);
         mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
