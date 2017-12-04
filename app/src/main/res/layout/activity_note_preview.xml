@@ -13,9 +13,6 @@
         android:layout_weight="1"
         android:layout_margin="16dp"
         android:hint="no_note"
-        android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="24sp" />
 
 </LinearLayout>

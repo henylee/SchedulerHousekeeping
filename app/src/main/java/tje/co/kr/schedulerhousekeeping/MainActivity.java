@@ -227,6 +227,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mPayAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void setValues() {
         mCalendar = new CalendarAdapter(mContext, GlobalData.mSchedul);
         todaySchedulList.setAdapter(mCalendar);
