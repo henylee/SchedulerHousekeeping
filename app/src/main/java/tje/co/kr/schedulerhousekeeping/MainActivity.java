@@ -220,9 +220,7 @@ public class MainActivity extends BaseActivity {
 
     private void previewNote(EventDay eventDay) {
         Intent intent = new Intent(this, NotePreviewActivity.class);
-        if (eventDay instanceof MyEventDay) {
-            intent.putExtra(EVENT, (MyEventDay) eventDay);
-        }
+        intent.putExtra(EVENT, eventDay.getCalendar());
         startActivity(intent);
     }
 

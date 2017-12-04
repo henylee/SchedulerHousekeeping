@@ -2,11 +2,13 @@ package tje.co.kr.schedulerhousekeeping;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.EventDay;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,19 +29,12 @@ public class NotePreviewActivity extends BaseActivity {
     @Override
     public void setupEvents() {
         Intent intent = getIntent();
-        if (intent != null) {
-            Object event = intent.getParcelableExtra(MainActivity.EVENT);
-            if(event instanceof MyEventDay){
-                MyEventDay myEventDay = (MyEventDay)event;
-                getSupportActionBar().setTitle(getFormattedDate(myEventDay.getCalendar().getTime()));
-                note.setText(myEventDay.getNote());
-                return;
-            }
-            if(event instanceof EventDay){
-                EventDay eventDay = (EventDay)event;
-                getSupportActionBar().setTitle(getFormattedDate(eventDay.getCalendar().getTime()));
-            }
-        }
+        Calendar tempCal = (Calendar) intent.getSerializableExtra(MainActivity.EVENT);
+        Log.d("tempCal", tempCal.toString());
+
+        String tempDay = getFormattedDate(tempCal.getTime());
+        setTitle(tempDay);
+
     }
 
     public static String getFormattedDate(Date date) {
