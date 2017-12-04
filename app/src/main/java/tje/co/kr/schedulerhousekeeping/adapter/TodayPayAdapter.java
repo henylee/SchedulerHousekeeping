@@ -13,22 +13,21 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-import tje.co.kr.schedulerhousekeeping.MySMSReceiver;
 import tje.co.kr.schedulerhousekeeping.R;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
 
 /**
- * Created by asqaw on 2017-11-28.
+ * Created by asqaw on 2017-12-04.
  */
 
-public class PayMentAdapter extends ArrayAdapter<Payment> {
+public class TodayPayAdapter extends ArrayAdapter<Payment> {
 
     Context mContext;
     List<Payment> mList;
     LayoutInflater inf;
 
-    public PayMentAdapter(Context context, List<Payment> list) {
-        super(context, R.layout.payment_list_item, list);
+    public TodayPayAdapter(Context context, List<Payment> list) {
+        super(context, R.layout.today_pay_list, list);
 
         mContext=context;
         mList=list;
@@ -41,7 +40,7 @@ public class PayMentAdapter extends ArrayAdapter<Payment> {
         View row=convertView;
 
         if (row==null) {
-            row=inf.inflate(R.layout.payment_list_item, null);
+            row=inf.inflate(R.layout.today_pay_list, null);
         }
 
         Payment data = mList.get(position);

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
@@ -30,6 +31,8 @@ import java.util.List;
 
 import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
+import tje.co.kr.schedulerhousekeeping.data.Payment;
+import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 
@@ -237,6 +240,8 @@ public class MainActivity extends BaseActivity {
         todaySchedulList.setEmptyView(scheduleEmptyLayout);
         mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
         todayPayList.setAdapter(mPayAdapter);
+        emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
+
     }
 
     @Override

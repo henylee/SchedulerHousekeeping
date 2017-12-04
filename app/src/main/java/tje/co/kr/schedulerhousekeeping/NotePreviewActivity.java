@@ -13,9 +13,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
-import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
+import tje.co.kr.schedulerhousekeeping.adapter.TodayAdapter;
+import tje.co.kr.schedulerhousekeeping.adapter.TodayPayAdapter;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
+import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 
 public class NotePreviewActivity extends BaseActivity {
@@ -25,9 +26,10 @@ public class NotePreviewActivity extends BaseActivity {
     private TextView emptyListTxt;
     private android.widget.LinearLayout scheduleEmptyLayout;
     private android.widget.ListView todayPayList;
-    CalendarAdapter mCalendar;
-    PayMentAdapter mPay;
+    TodayAdapter mCalendar;
+    TodayPayAdapter mPay;
     List<Payment> showPayList = new ArrayList<>();
+    List<Scheduler> showSchedulList = new ArrayList<>();
     private TextView costTxt;
 
     Calendar selectedDay = null;
@@ -62,13 +64,26 @@ public class NotePreviewActivity extends BaseActivity {
         String tempDay = getFormattedDate(selectedDay.getTime());
         setTitle(tempDay);
 
-        mCalendar = new CalendarAdapter(mContext, GlobalData.mSchedul);
+        mCalendar = new TodayAdapter(mContext, showSchedulList);
         todaySchedulList.setAdapter(mCalendar);
         todaySchedulList.setEmptyView(scheduleEmptyLayout);
-        mPay = new PayMentAdapter(mContext, showPayList);
+        mPay = new TodayPayAdapter(mContext, showPayList);
         todayPayList.setAdapter(mPay);
 
         calSumOfToday();
+        todayList();
+    }
+
+    private void todayList() {
+        showSchedulList.clear();
+
+        for (Scheduler s : GlobalData.mSchedul) {
+            if (s.getDateTime().get(Calendar.YEAR) == selectedDay.get(Calendar.YEAR) && s.getDateTime().get(Calendar.MONTH) == selectedDay.get(Calendar.MONTH) && s.getDateTime().get(Calendar.DAY_OF_MONTH) == selectedDay.get(Calendar.DAY_OF_MONTH)) {
+
+                showSchedulList.add(s);
+            }
+            mCalendar.notifyDataSetChanged();
+        }
     }
 
     private void calSumOfToday() {
@@ -76,9 +91,7 @@ public class NotePreviewActivity extends BaseActivity {
         todaySum = 0;
         showPayList.clear();
         for(Payment p : GlobalData.mPay) {
-            if (p.getDateTime().get(Calendar.YEAR) == selectedDay.get(Calendar.YEAR)
-                    && p.getDateTime().get(Calendar.MONTH) == selectedDay.get(Calendar.MONTH)
-                    && p.getDateTime().get(Calendar.DAY_OF_MONTH) == selectedDay.get(Calendar.DAY_OF_MONTH)) {
+            if (p.getDateTime().get(Calendar.YEAR) == selectedDay.get(Calendar.YEAR) && p.getDateTime().get(Calendar.MONTH) == selectedDay.get(Calendar.MONTH) && p.getDateTime().get(Calendar.DAY_OF_MONTH) == selectedDay.get(Calendar.DAY_OF_MONTH)) {
 
                 showPayList.add(p);
                 todaySum += p.getCost();
