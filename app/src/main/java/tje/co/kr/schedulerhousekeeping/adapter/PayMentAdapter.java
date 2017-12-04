@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import tje.co.kr.schedulerhousekeeping.MySMSReceiver;
 import tje.co.kr.schedulerhousekeeping.R;
@@ -53,7 +54,8 @@ public class PayMentAdapter extends ArrayAdapter<Payment> {
         storeNameTxt.setText(data.getStoreName());
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
         timeTxt.setText(sdf.format(data.getDateTime().getTime()));
-        costTxt.setText(data.getCost()+"원");
+        String temp = String.format(Locale.KOREA, "%,d원", data.getCost());
+        costTxt.setText(temp);
 
         return row;
     }
