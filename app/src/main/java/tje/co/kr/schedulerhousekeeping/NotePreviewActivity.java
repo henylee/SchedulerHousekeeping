@@ -2,6 +2,8 @@ package tje.co.kr.schedulerhousekeeping;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +36,7 @@ public class NotePreviewActivity extends BaseActivity {
 
     Calendar selectedDay = null;
     int todaySum = 0;
+    private android.widget.Button addNoteBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,14 @@ public class NotePreviewActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+        addNoteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tempintent = new Intent(mContext, AddNoteActivity.class);
+                tempintent.putExtra("선택된일자", selectedDay);
+                startActivity(tempintent);
+            }
+        });
 
     }
 
@@ -73,9 +84,6 @@ public class NotePreviewActivity extends BaseActivity {
         calSumOfToday();
         todayList();
 
-        Intent tempintent = new Intent(mContext, AddNoteActivity.class);
-        tempintent.putExtra("선택된일자", selectedDay);
-        startActivity(tempintent);
     }
 
     private void todayList() {
@@ -115,5 +123,6 @@ public class NotePreviewActivity extends BaseActivity {
         this.scheduleEmptyLayout = (LinearLayout) findViewById(R.id.scheduleEmptyLayout);
         this.emptyListTxt = (TextView) findViewById(R.id.emptyListTxt);
         this.todaySchedulList = (ListView) findViewById(R.id.todaySchedulList);
+        this.addNoteBtn = (Button) findViewById(R.id.addNoteBtn);
     }
 }

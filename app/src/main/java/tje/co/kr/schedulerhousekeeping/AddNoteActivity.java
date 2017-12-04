@@ -26,9 +26,7 @@ public class AddNoteActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
-
         pickDate = (Calendar) getIntent().getSerializableExtra("선택된일자");
-
 
         bindViews();
         setupEvents();
