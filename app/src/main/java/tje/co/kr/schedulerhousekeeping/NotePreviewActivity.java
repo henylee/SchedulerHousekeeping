@@ -7,12 +7,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
+import tje.co.kr.schedulerhousekeeping.data.Payment;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 
 public class NotePreviewActivity extends BaseActivity {
@@ -24,7 +27,11 @@ public class NotePreviewActivity extends BaseActivity {
     private android.widget.ListView todayPayList;
     CalendarAdapter mCalendar;
     PayMentAdapter mPay;
+    List<Payment> showPayList = new ArrayList<>();
     private TextView costTxt;
+
+    Calendar selectedDay = null;
+    int todaySum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +45,6 @@ public class NotePreviewActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
-        Intent intent = getIntent();
-        Calendar tempCal = (Calendar) intent.getSerializableExtra(MainActivity.EVENT);
-
-        String tempDay = getFormattedDate(tempCal.getTime());
-        setTitle(tempDay);
 
     }
 
@@ -53,11 +55,40 @@ public class NotePreviewActivity extends BaseActivity {
 
     @Override
     public void setValues() {
+
+        Intent intent = getIntent();
+        selectedDay = (Calendar) intent.getSerializableExtra(MainActivity.EVENT);
+
+        String tempDay = getFormattedDate(selectedDay.getTime());
+        setTitle(tempDay);
+
         mCalendar = new CalendarAdapter(mContext, GlobalData.mSchedul);
         todaySchedulList.setAdapter(mCalendar);
         todaySchedulList.setEmptyView(scheduleEmptyLayout);
-        mPay = new PayMentAdapter(mContext, GlobalData.mPay);
+        mPay = new PayMentAdapter(mContext, showPayList);
         todayPayList.setAdapter(mPay);
+
+        calSumOfToday();
+    }
+
+    private void calSumOfToday() {
+
+        todaySum = 0;
+        showPayList.clear();
+        for(Payment p : GlobalData.mPay) {
+            if (p.getDateTime().get(Calendar.YEAR) == selectedDay.get(Calendar.YEAR)
+                    && p.getDateTime().get(Calendar.MONTH) == selectedDay.get(Calendar.MONTH)
+                    && p.getDateTime().get(Calendar.DAY_OF_MONTH) == selectedDay.get(Calendar.DAY_OF_MONTH)) {
+
+                showPayList.add(p);
+                todaySum += p.getCost();
+            }
+        }
+
+        mPay.notifyDataSetChanged();
+
+        costTxt.setText(String.format(Locale.KOREA, "%,d원", todaySum));
+
     }
 
     @Override
