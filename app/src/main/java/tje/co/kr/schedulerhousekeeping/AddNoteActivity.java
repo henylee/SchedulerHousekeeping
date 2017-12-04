@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 import com.applandeo.materialcalendarview.CalendarView;
 
+import java.util.Calendar;
+
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 
@@ -18,10 +20,15 @@ public class AddNoteActivity extends BaseActivity {
     private android.support.v7.widget.AppCompatButton addNoteButton;
     private android.widget.EditText noteEditText;
 
+    Calendar pickDate = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+
+        pickDate = (Calendar) getIntent().getSerializableExtra("선택된일자");
+
 
         bindViews();
         setupEvents();

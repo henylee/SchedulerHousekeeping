@@ -27,6 +27,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayout serviceLayout2;
     private android.widget.ListView todaySchedulList;
     CalendarAdapter mCalendar;
+    List<Scheduler> mScheduleList = new ArrayList<>();
     private ListView todayPayList;
     public PayMentAdapter mPayAdapter;
     private Fab fab;
@@ -218,6 +220,7 @@ public class MainActivity extends BaseActivity {
 
     private void addNote() {
         Intent intent = new Intent(this, AddNoteActivity.class);
+        intent.putExtra("선택된일자", Calendar.getInstance());
         startActivityForResult(intent, ADD_NOTE);
     }
 
@@ -230,12 +233,23 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        mScheduleList.clear();
+        Calendar today = Calendar.getInstance();
+        for (Scheduler s : GlobalData.mSchedul) {
+            if (s.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && s.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && s.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
+
+                mScheduleList.add(s);
+            }
+        }
+        mCalendar.notifyDataSetChanged();
+
         mPayAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void setValues() {
-        mCalendar = new CalendarAdapter(mContext, GlobalData.mSchedul);
+        mCalendar = new CalendarAdapter(mContext, mScheduleList);
         todaySchedulList.setAdapter(mCalendar);
         todaySchedulList.setEmptyView(scheduleEmptyLayout);
         mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);

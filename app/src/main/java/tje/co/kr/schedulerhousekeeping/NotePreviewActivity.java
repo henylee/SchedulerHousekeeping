@@ -72,6 +72,10 @@ public class NotePreviewActivity extends BaseActivity {
 
         calSumOfToday();
         todayList();
+
+        Intent tempintent = new Intent(mContext, AddNoteActivity.class);
+        tempintent.putExtra("선택된일자", selectedDay);
+        startActivity(tempintent);
     }
 
     private void todayList() {
@@ -82,8 +86,8 @@ public class NotePreviewActivity extends BaseActivity {
 
                 showSchedulList.add(s);
             }
-            mCalendar.notifyDataSetChanged();
         }
+        mCalendar.notifyDataSetChanged();
     }
 
     private void calSumOfToday() {
