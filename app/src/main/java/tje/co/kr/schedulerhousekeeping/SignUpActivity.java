@@ -1,7 +1,7 @@
 package tje.co.kr.schedulerhousekeeping;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import tje.co.kr.schedulerhousekeeping.util.ServerUtil;
 
 public class SignUpActivity extends BaseActivity {
+
+    boolean isIdDupl = true;
 
     private android.widget.EditText idEdt;
     private android.widget.Button idDupBtn;
@@ -33,6 +35,37 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        idDupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ServerUtil.id_dupi_ok(mContext, idEdt.getText().toString(), new ServerUtil.JsonResponseHandler() {
+                    @Override
+                    public void onResponse(JSONObject json) {
+
+                        try {
+                            isIdDupl = json.getBoolean("result");
+
+                            if (!isIdDupl) {
+                                AlertDialog.Builder myBuilder = new AlertDialog.Builder(mContext);
+                                myBuilder.setTitle("중복 확인");
+                                myBuilder.setMessage("이미 사용중인 아이디입니다.");
+                                myBuilder.setPositiveButton("확인", null);
+                                myBuilder.show();
+
+                            } else {
+                                Toast.makeText(mContext, "사용해도 좋은 아이디입니다.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            }
+        });
+
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

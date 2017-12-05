@@ -23,7 +23,7 @@ public class User implements Serializable {
             u.userId = jsonObject.getString("userId");
             u.password = jsonObject.getString("password");
             u.name = jsonObject.getString("name");
-            u.phone = jsonObject.getString("phone");
+            u.phone = jsonObject.getString("phoneNum");
         } catch (JSONException e) {
             e.printStackTrace();
         }

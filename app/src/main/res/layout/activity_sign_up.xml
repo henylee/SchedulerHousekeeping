@@ -15,15 +15,19 @@
 
         <EditText
             android:id="@+id/idEdt"
-            android:hint="아이디 입력"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="아이디를 입력"
+            android:singleLine="true"
+            android:layout_weight="5"/>
 
         <Button
             android:id="@+id/idDupBtn"
-            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="중복확인"/>
+            android:text="중복확인"
+            android:layout_weight="2"/>
 
     </LinearLayout>
 

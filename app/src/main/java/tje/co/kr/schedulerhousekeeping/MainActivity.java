@@ -36,6 +36,7 @@ import java.util.List;
 import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
+import tje.co.kr.schedulerhousekeeping.data.User;
 import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 import tje.co.kr.schedulerhousekeeping.util.ServerUtil;
@@ -159,6 +160,8 @@ public class MainActivity extends BaseActivity {
                                 beforeLoginLayout.setVisibility(View.GONE);
                                 afterLoginLayout.setVisibility(View.VISIBLE);
                                 Toast.makeText(mContext, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                                User u = User.getUserFromJson(json.getJSONObject("user"));
+                                changeIdTxt.setText(u.getName());
                             } else {
                                 Toast.makeText(mContext, "아이디와 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                             }
@@ -272,7 +275,7 @@ public class MainActivity extends BaseActivity {
         mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
         todayPayList.setAdapter(mPayAdapter);
         emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
-        changeIdTxt.setText(idEdt.getText().toString());
+
     }
 
     @Override

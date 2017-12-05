@@ -144,14 +144,12 @@ public class ServerUtil {
         });
     }
 
-    public static void news(final Context context, String title, String content, String newsImage, final JsonResponseHandler handler) {
-        String url = BASE_URL+"mobile/news";
+    public static void id_dupi_ok(final Context context, String id, final JsonResponseHandler handler) {
+        String url = BASE_URL+"/id_dup_ok";
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
         Map<String, String> data = new HashMap<String, String>();
-        data.put("title", title);
-        data.put("content", content);
-        data.put("image", newsImage);
+        data.put("userId", id);
 
         AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
 
