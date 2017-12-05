@@ -165,11 +165,13 @@ public class MainActivity extends BaseActivity {
                         try {
                             if (json.getBoolean("result")) {
                                 dlactivitymaindrawer.closeDrawer(llll);
-                                beforeLoginLayout.setVisibility(View.GONE);
-                                afterLoginLayout.setVisibility(View.VISIBLE);
+
                                 Toast.makeText(mContext, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
                                 User u = User.getUserFromJson(json.getJSONObject("user"));
-                                changeIdTxt.setText(u.getName());
+                                ContextUtil.setLoginUser(mContext, u.getUserId(), u.getPassword(), u.getName(), u.getPhone());
+
+                                showLoginUserInfo();
+
                             } else {
                                 Toast.makeText(mContext, "아이디와 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                             }
@@ -235,6 +237,14 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    private void showLoginUserInfo() {
+
+        User u = ContextUtil.getLoginUser(mContext);
+        beforeLoginLayout.setVisibility(View.GONE);
+        afterLoginLayout.setVisibility(View.VISIBLE);
+        changeIdTxt.setText(u.getName());
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADD_NOTE && resultCode == RESULT_OK) {
@@ -286,6 +296,10 @@ public class MainActivity extends BaseActivity {
 
         boolean autoLogin = ContextUtil.getAutoLogin(mContext);
         autoLoginCBox.setChecked(autoLogin);
+
+        if (ContextUtil.getLoginUser(mContext) != null) {
+            showLoginUserInfo();
+        }
     }
 
     @Override

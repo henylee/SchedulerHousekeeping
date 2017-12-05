@@ -88,7 +88,6 @@ public class ContextUtil {
         pref.edit().putString(USER_PASSWORD, pw).commit();
         pref.edit().putString(USER_PHONE, phoneNum).commit();
 
-        loginUser = new User();
 
     }
 
@@ -96,7 +95,11 @@ public class ContextUtil {
 
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
-        if (loginUser != null) {
+        if (pref.getString(USER_ID, "").equals("")) {
+            loginUser = null;
+        }
+        else {
+            loginUser = new User();
             loginUser.setName(pref.getString(USER_NAME, ""));
             loginUser.setUserId(pref.getString(USER_ID, ""));
             loginUser.setPassword(pref.getString(USER_PASSWORD, ""));
@@ -112,8 +115,10 @@ public class ContextUtil {
 
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
+        pref.edit().putString(USER_ID, "").commit();
+        pref.edit().putString(USER_PASSWORD, "").commit();
         pref.edit().putString(USER_NAME, "").commit();
-        pref.edit().putString(USER_PASSWORD,"").commit();
+        pref.edit().putString(USER_PHONE,"").commit();
 
     }
 
