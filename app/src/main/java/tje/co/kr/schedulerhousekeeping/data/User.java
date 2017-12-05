@@ -1,5 +1,8 @@
 package tje.co.kr.schedulerhousekeeping.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -8,28 +11,42 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    private String email;
+    private String userId;
     private String password;
     private String name;
     private String phone;
+
+    public static User getUserFromJson(JSONObject jsonObject) {
+        User u = new User();
+
+        try {
+            u.userId = jsonObject.getString("userId");
+            u.password = jsonObject.getString("password");
+            u.name = jsonObject.getString("name");
+            u.phone = jsonObject.getString("phone");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return u;
+    }
 
     public User() {
 
     }
 
-    public User(String email, String password, String name, String phone) {
-        this.email = email;
+    public User(String userId, String password, String name, String phone) {
+        this.userId = userId;
         this.password = password;
         this.name = name;
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {

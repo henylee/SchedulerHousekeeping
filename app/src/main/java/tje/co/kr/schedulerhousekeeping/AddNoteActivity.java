@@ -51,7 +51,7 @@ public class AddNoteActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-
+        datePicker.setDate(pickDate);
     }
 
     @Override

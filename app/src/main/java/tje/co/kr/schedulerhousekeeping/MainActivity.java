@@ -26,16 +26,19 @@ import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
-import tje.co.kr.schedulerhousekeeping.data.Payment;
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
+import tje.co.kr.schedulerhousekeeping.util.ServerUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -74,6 +77,7 @@ public class MainActivity extends BaseActivity {
     private long backPressedTime = 0;
     private TextView emptyListTxt;
     private LinearLayout scheduleEmptyLayout;
+    private TextView changeIdTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,10 +150,23 @@ public class MainActivity extends BaseActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dlactivitymaindrawer.closeDrawer(llll);
-                beforeLoginLayout.setVisibility(View.GONE);
-                afterLoginLayout.setVisibility(View.VISIBLE);
-                Toast.makeText(mContext, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                ServerUtil.sign_in(mContext, idEdt.getText().toString(), pwEdt.getText().toString(), new ServerUtil.JsonResponseHandler() {
+                    @Override
+                    public void onResponse(JSONObject json) {
+                        try {
+                            if (json.getBoolean("result")) {
+                                dlactivitymaindrawer.closeDrawer(llll);
+                                beforeLoginLayout.setVisibility(View.GONE);
+                                afterLoginLayout.setVisibility(View.VISIBLE);
+                                Toast.makeText(mContext, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(mContext, "아이디와 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
 
@@ -255,7 +272,7 @@ public class MainActivity extends BaseActivity {
         mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
         todayPayList.setAdapter(mPayAdapter);
         emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
-
+        changeIdTxt.setText(idEdt.getText().toString());
     }
 
     @Override
@@ -281,6 +298,7 @@ public class MainActivity extends BaseActivity {
         this.scheduleEmptyLayout = (LinearLayout) findViewById(R.id.scheduleEmptyLayout);
         this.emptyListTxt = (TextView) findViewById(R.id.emptyListTxt);
         this.todaySchedulList = (ListView) findViewById(R.id.todaySchedulList);
+        this.changeIdTxt = (TextView) findViewById(R.id.changeIdTxt);
         this.beforeLoginLayout = (LinearLayout) findViewById(R.id.beforeLoginLayout);
         this.signUpBtn = (TextView) findViewById(R.id.signUpBtn);
         this.loginBtn = (TextView) findViewById(R.id.loginBtn);
