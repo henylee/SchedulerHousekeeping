@@ -19,6 +19,7 @@ public class ContextUtil {
     private static final String USER_ID = "USER_ID";
     private static final String USER_NAME = "USER_NAME";
     private static final String USER_PASSWORD = "USER_PASSWORD";
+    private static final String USER_PHONE = "USER_PHONE";
     private static final String AUTO_LOGIN = "AUTO_LOGIN";
 
 
@@ -45,6 +46,28 @@ public class ContextUtil {
         return pref.getString(USER_ID, "아이디가없습니다");
     }
 
+    public  static void  setUserPhone(Context context, String phone) {
+
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        pref.edit().putString(USER_PHONE, phone).commit();
+    }
+
+    public static String getUserPhone(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        return pref.getString(USER_PHONE, "");
+    }
+
+    public static void setUserName(Context context, String userName) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        pref.edit().putString(USER_NAME, userName).commit();
+    }
+
+    public static String getUserName(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        return pref.getString(USER_NAME, "");
+
+    }
+
     public static void setAutoLogin(Context context, boolean login) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
@@ -52,17 +75,18 @@ public class ContextUtil {
 
     }
 
-    public static boolean isAutoLogin(Context context) {
+    public static boolean getAutoLogin(Context context) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
         return pref.getBoolean(AUTO_LOGIN, false);
     }
 
-
-    public static void setLoginUser(Context context, String name, String pw) {
+    public static void setLoginUser(Context context, String userId, String pw, String name, String phoneNum) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
         pref.edit().putString(USER_NAME, name).commit();
+        pref.edit().putString(USER_ID, userId).commit();
         pref.edit().putString(USER_PASSWORD, pw).commit();
+        pref.edit().putString(USER_PHONE, phoneNum).commit();
 
         loginUser = new User();
 
@@ -74,7 +98,9 @@ public class ContextUtil {
 
         if (loginUser != null) {
             loginUser.setName(pref.getString(USER_NAME, ""));
+            loginUser.setUserId(pref.getString(USER_ID, ""));
             loginUser.setPassword(pref.getString(USER_PASSWORD, ""));
+            loginUser.setPhone(pref.getString(USER_PHONE, ""));
         }
 
         return loginUser;

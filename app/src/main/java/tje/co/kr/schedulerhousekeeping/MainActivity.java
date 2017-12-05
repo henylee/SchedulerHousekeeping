@@ -284,6 +284,8 @@ public class MainActivity extends BaseActivity {
         todayPayList.setAdapter(mPayAdapter);
         emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
 
+        boolean autoLogin = ContextUtil.getAutoLogin(mContext);
+        autoLoginCBox.setChecked(autoLogin);
     }
 
     @Override
