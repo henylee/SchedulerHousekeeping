@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
+    private int id;
     private String userId;
     private String password;
     private String name;
@@ -20,6 +21,7 @@ public class User implements Serializable {
         User u = new User();
 
         try {
+            u.id = jsonObject.getInt("id");
             u.userId = jsonObject.getString("userId");
             u.password = jsonObject.getString("password");
             u.name = jsonObject.getString("name");
@@ -34,11 +36,20 @@ public class User implements Serializable {
 
     }
 
-    public User(String userId, String password, String name, String phone) {
+    public User(int id, String userId, String password, String name, String phone) {
+        this.id = id;
         this.userId = userId;
         this.password = password;
         this.name = name;
         this.phone = phone;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserId() {

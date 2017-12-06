@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
+import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 import tje.co.kr.schedulerhousekeeping.util.ServerUtil;
 
@@ -43,15 +44,14 @@ public class AddNoteActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                ServerUtil.add_schedul(mContext, titleEditTxt.getText().toString(), noteEditText.getText().toString(), Calendar.getInstance(), new ServerUtil.JsonResponseHandler() {
+                ServerUtil.add_schedul(mContext, titleEditTxt.getText().toString(), noteEditText.getText().toString(), datePicker.getSelectedDate(), ContextUtil.getId(mContext), new ServerUtil.JsonResponseHandler() {
                     @Override
                     public void onResponse(JSONObject json) {
                         Intent returnIntent = new Intent();
-                        MyEventDay myEventDay = new MyEventDay(datePicker.getSelectedDate(),
-                                R.drawable.ic_message_black_48dp, noteEditText.getText().toString());
+                        MyEventDay myEventDay = new MyEventDay(datePicker.getSelectedDate(), R.drawable.ic_message_black_48dp, noteEditText.getText().toString());
                         returnIntent.putExtra(MainActivity.RESULT, myEventDay);
                         setResult(Activity.RESULT_OK, returnIntent);
-                        GlobalData.mSchedul.add(new Scheduler(titleEditTxt.getText().toString(), noteEditText.getText().toString(), datePicker.getSelectedDate()));
+                        GlobalData.mSchedul.add(new Scheduler(titleEditTxt.getText().toString(), noteEditText.getText().toString(), datePicker.getSelectedDate(), ContextUtil.getId(mContext)));
                         finish();
                     }
                 });

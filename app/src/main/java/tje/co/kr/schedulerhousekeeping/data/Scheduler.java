@@ -13,15 +13,17 @@ public class Scheduler implements Serializable {
     private String title;
     private String content;
     private Calendar dateTime;
+    private int user_id;
 
     public Scheduler() {
 
     }
 
-    public Scheduler(String title, String content, Calendar dateTime) {
+    public Scheduler(String title, String content, Calendar dateTime, int user_id) {
         this.title = title;
         this.content = content;
         this.dateTime = dateTime;
+        this.user_id = user_id;
     }
 
     public String getTitle() {
@@ -46,5 +48,13 @@ public class Scheduler implements Serializable {
 
     public void setDateTime(Calendar dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

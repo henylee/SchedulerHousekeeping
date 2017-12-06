@@ -185,7 +185,7 @@ public class ServerUtil {
         });
     }
 
-    public static void add_schedul(final Context context, String title, String content, Calendar dateTime, final JsonResponseHandler handler) {
+    public static void add_schedul(final Context context, String title, String content, Calendar dateTime, int user_id, final JsonResponseHandler handler) {
         String url = BASE_URL+"/insert_scheduler";
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
@@ -198,7 +198,8 @@ public class ServerUtil {
         dateTime.set(Calendar.MILLISECOND, 0);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String sdfTxt = sdf.format(dateTime.getTime());
-        data.put("dateTime",sdfTxt);
+        data.put("date",sdfTxt);
+        data.put("user_id", user_id+"");
 
         AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
 
@@ -232,20 +233,12 @@ public class ServerUtil {
         });
     }
 
-    public static void all_schedul(final Context context, String title, String content, Calendar dateTime, final JsonResponseHandler handler) {
+    public static void all_schedul(final Context context, final JsonResponseHandler handler) {
         String url = BASE_URL+"/get_my_all_schedul";
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
         Map<String, String> data = new HashMap<String, String>();
-        data.put("title", title);
-        data.put("content", content);
-        dateTime.set(Calendar.HOUR, 0);
-        dateTime.set(Calendar.MINUTE, 0);
-        dateTime.set(Calendar.SECOND, 0);
-        dateTime.set(Calendar.MILLISECOND, 0);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String sdfTxt = sdf.format(dateTime.getTime());
-        data.put("dateTime",sdfTxt);
+        data.put("user_id", ContextUtil.getUserId(context));
 
         AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
 

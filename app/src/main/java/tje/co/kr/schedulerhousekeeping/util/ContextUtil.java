@@ -16,6 +16,7 @@ public class ContextUtil {
     private static final String prefName = "PermissionPref";
 
     private static final String IS_FIRST_OK = "IS_FIRST_OK";
+    private static final String ID = "ID";
     private static final String USER_ID = "USER_ID";
     private static final String USER_NAME = "USER_NAME";
     private static final String USER_PASSWORD = "USER_PASSWORD";
@@ -32,6 +33,18 @@ public class ContextUtil {
     public static void setIsFirstOk (Context context, boolean isOK) {
         SharedPreferences  pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
         pref.edit().putBoolean(IS_FIRST_OK, isOK).commit();
+    }
+
+    public static void setId(Context context, int id) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+
+        pref.edit().putInt(ID, id).commit();
+
+    }
+
+    public static int getId(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        return pref.getInt(ID, 0);
     }
 
     public static void setUserId(Context context, String userId) {
@@ -80,9 +93,10 @@ public class ContextUtil {
         return pref.getBoolean(AUTO_LOGIN, false);
     }
 
-    public static void setLoginUser(Context context, String userId, String pw, String name, String phoneNum) {
+    public static void setLoginUser(Context context, int id, String userId, String pw, String name, String phoneNum) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
+        pref.edit().putInt(ID, id).commit();
         pref.edit().putString(USER_NAME, name).commit();
         pref.edit().putString(USER_ID, userId).commit();
         pref.edit().putString(USER_PASSWORD, pw).commit();
@@ -100,6 +114,7 @@ public class ContextUtil {
         }
         else {
             loginUser = new User();
+            loginUser.setId(pref.getInt(ID, 0));
             loginUser.setName(pref.getString(USER_NAME, ""));
             loginUser.setUserId(pref.getString(USER_ID, ""));
             loginUser.setPassword(pref.getString(USER_PASSWORD, ""));
@@ -115,6 +130,7 @@ public class ContextUtil {
 
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
+        pref.edit().putInt(ID, 0).commit();
         pref.edit().putString(USER_ID, "").commit();
         pref.edit().putString(USER_PASSWORD, "").commit();
         pref.edit().putString(USER_NAME, "").commit();

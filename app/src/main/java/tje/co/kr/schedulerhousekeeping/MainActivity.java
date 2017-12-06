@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -168,7 +169,7 @@ public class MainActivity extends BaseActivity {
 
                                 Toast.makeText(mContext, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
                                 User u = User.getUserFromJson(json.getJSONObject("user"));
-                                ContextUtil.setLoginUser(mContext, u.getUserId(), u.getPassword(), u.getName(), u.getPhone());
+                                ContextUtil.setLoginUser(mContext, u.getId(), u.getUserId(), u.getPassword(), u.getName(), u.getPhone());
 
                                 showLoginUserInfo();
 
@@ -293,6 +294,13 @@ public class MainActivity extends BaseActivity {
         mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
         todayPayList.setAdapter(mPayAdapter);
         emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
+
+        ServerUtil.all_schedul(mContext, new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                Log.d("할일", json.toString());
+            }
+        });
 
         boolean autoLogin = ContextUtil.getAutoLogin(mContext);
         autoLoginCBox.setChecked(autoLogin);
