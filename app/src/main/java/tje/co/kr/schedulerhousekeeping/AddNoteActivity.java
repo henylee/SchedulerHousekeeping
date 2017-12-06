@@ -9,10 +9,13 @@ import android.widget.EditText;
 
 import com.applandeo.materialcalendarview.CalendarView;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
 
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
+import tje.co.kr.schedulerhousekeeping.util.ServerUtil;
 
 public class AddNoteActivity extends BaseActivity {
 
@@ -21,6 +24,7 @@ public class AddNoteActivity extends BaseActivity {
     private android.widget.EditText noteEditText;
 
     Calendar pickDate = null;
+    private EditText titleEditTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +42,20 @@ public class AddNoteActivity extends BaseActivity {
         addNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent returnIntent = new Intent();
-                MyEventDay myEventDay = new MyEventDay(datePicker.getSelectedDate(),
-                        R.drawable.ic_message_black_48dp, noteEditText.getText().toString());
-                returnIntent.putExtra(MainActivity.RESULT, myEventDay);
-                setResult(Activity.RESULT_OK, returnIntent);
-                GlobalData.mSchedul.add(new Scheduler(noteEditText.getText().toString(), datePicker.getSelectedDate()));
-                finish();
+
+                ServerUtil.add_schedul(mContext, titleEditTxt.getText().toString(), noteEditText.getText().toString(), Calendar.getInstance(), new ServerUtil.JsonResponseHandler() {
+                    @Override
+                    public void onResponse(JSONObject json) {
+                        Intent returnIntent = new Intent();
+                        MyEventDay myEventDay = new MyEventDay(datePicker.getSelectedDate(),
+                                R.drawable.ic_message_black_48dp, noteEditText.getText().toString());
+                        returnIntent.putExtra(MainActivity.RESULT, myEventDay);
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        GlobalData.mSchedul.add(new Scheduler(titleEditTxt.getText().toString(), noteEditText.getText().toString(), datePicker.getSelectedDate()));
+                        finish();
+                    }
+                });
+
             }
         });
     }
@@ -56,8 +67,9 @@ public class AddNoteActivity extends BaseActivity {
 
     @Override
     public void bindViews() {
-        this.noteEditText = (EditText) findViewById(R.id.noteEditText);
         this.addNoteButton = (AppCompatButton) findViewById(R.id.addNoteButton);
+        this.noteEditText = (EditText) findViewById(R.id.noteEditText);
         this.datePicker = (CalendarView) findViewById(R.id.datePicker);
+        this.titleEditTxt = (EditText) findViewById(R.id.titleEditTxt);
     }
 }

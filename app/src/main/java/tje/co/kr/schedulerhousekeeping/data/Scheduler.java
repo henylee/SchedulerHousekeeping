@@ -10,6 +10,7 @@ import java.util.Date;
 
 public class Scheduler implements Serializable {
 
+    private String title;
     private String content;
     private Calendar dateTime;
 
@@ -17,9 +18,18 @@ public class Scheduler implements Serializable {
 
     }
 
-    public Scheduler(String content, Calendar dateTime) {
+    public Scheduler(String title, String content, Calendar dateTime) {
+        this.title = title;
         this.content = content;
         this.dateTime = dateTime;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {

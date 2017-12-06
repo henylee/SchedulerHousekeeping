@@ -6,6 +6,8 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -150,6 +152,100 @@ public class ServerUtil {
 
         Map<String, String> data = new HashMap<String, String>();
         data.put("userId", id);
+
+        AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.i("RESPONSE", response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    public static void add_schedul(final Context context, String title, String content, Calendar dateTime, final JsonResponseHandler handler) {
+        String url = BASE_URL+"/insert_scheduler";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("title", title);
+        data.put("content", content);
+        dateTime.set(Calendar.HOUR, 0);
+        dateTime.set(Calendar.MINUTE, 0);
+        dateTime.set(Calendar.SECOND, 0);
+        dateTime.set(Calendar.MILLISECOND, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sdfTxt = sdf.format(dateTime.getTime());
+        data.put("dateTime",sdfTxt);
+
+        AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.i("RESPONSE", response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    public static void all_schedul(final Context context, String title, String content, Calendar dateTime, final JsonResponseHandler handler) {
+        String url = BASE_URL+"/get_my_all_schedul";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("title", title);
+        data.put("content", content);
+        dateTime.set(Calendar.HOUR, 0);
+        dateTime.set(Calendar.MINUTE, 0);
+        dateTime.set(Calendar.SECOND, 0);
+        dateTime.set(Calendar.MILLISECOND, 0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sdfTxt = sdf.format(dateTime.getTime());
+        data.put("dateTime",sdfTxt);
 
         AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
 

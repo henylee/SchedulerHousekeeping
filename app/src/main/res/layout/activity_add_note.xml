@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context="tje.co.kr.schedulerhousekeeping.AddNoteActivity">
 
+    <EditText
+        android:id="@+id/titleEditTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:hint="write_title"/>
+
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/datePicker"
         android:layout_width="wrap_content"
@@ -26,11 +33,7 @@
         android:layout_weight="1"
         android:layout_margin="8dp"
         android:gravity="top"
-        android:hint="write_note"
-        app:layout_constraintBottom_toTopOf="@id/addNoteButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/datePicker" />
+        android:hint="write_note"/>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/addNoteButton"
@@ -38,9 +41,6 @@
         android:layout_height="50dp"
         android:text="save"
         android:textColor="@android:color/white"
-        app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:backgroundTint="@color/colorAccent"/>
 
 </LinearLayout>

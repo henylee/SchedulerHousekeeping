@@ -46,8 +46,10 @@ public class CalendarAdapter extends ArrayAdapter<Scheduler> {
 
         TextView contentTxt = (TextView) row.findViewById(R.id.contentTxt);
         TextView dateTxt = (TextView) row.findViewById(R.id.dateTxt);
+        TextView titleTxt = (TextView) row.findViewById(R.id.titleTxt);
 
         contentTxt.setText(data.getContent());
+        titleTxt.setText(data.getTitle());
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
         dateTxt.setText(sdf.format(data.getDateTime().getTime()));
 
