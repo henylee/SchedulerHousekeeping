@@ -11,6 +11,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,6 +39,7 @@ import java.util.List;
 
 import tje.co.kr.schedulerhousekeeping.adapter.CalendarAdapter;
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
+import tje.co.kr.schedulerhousekeeping.data.Payment;
 import tje.co.kr.schedulerhousekeeping.data.Scheduler;
 import tje.co.kr.schedulerhousekeeping.data.User;
 import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
@@ -67,6 +70,7 @@ public class MainActivity extends BaseActivity {
     private android.widget.ListView todaySchedulList;
     CalendarAdapter mCalendar;
     List mScheduleList = new ArrayList<>();
+    List mpayList = new ArrayList<>();
     private ListView todayPayList;
     public PayMentAdapter mPayAdapter;
     private Fab fab;
@@ -274,6 +278,7 @@ public class MainActivity extends BaseActivity {
         super.onResume();
 
         mScheduleList.clear();
+        mpayList.clear();
         Calendar today = Calendar.getInstance();
         for (Scheduler s : GlobalData.mSchedul) {
             if (s.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && s.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && s.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
@@ -281,8 +286,15 @@ public class MainActivity extends BaseActivity {
                 mScheduleList.add(s);
             }
         }
-        mCalendar.notifyDataSetChanged();
 
+        for (Payment p : GlobalData.mPay) {
+            if (p.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && p.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && p.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
+
+                mpayList.add(p);
+            }
+        }
+
+        mCalendar.notifyDataSetChanged();
         mPayAdapter.notifyDataSetChanged();
     }
 
@@ -291,7 +303,7 @@ public class MainActivity extends BaseActivity {
         mCalendar = new CalendarAdapter(mContext, mScheduleList);
         todaySchedulList.setAdapter(mCalendar);
         todaySchedulList.setEmptyView(scheduleEmptyLayout);
-        mPayAdapter = new PayMentAdapter(mContext, GlobalData.mPay);
+        mPayAdapter = new PayMentAdapter(mContext, mpayList);
         todayPayList.setAdapter(mPayAdapter);
         emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
 
@@ -299,12 +311,32 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject json) {
                 try {
-                    JSONObject scheduls= json.getJSONObject("scheduls");
-                    String id = scheduls.getString("user_id");
-                    Log.d("유저", id.toString());
+                    JSONArray scheduls = json.getJSONArray("scheduls");
+                    for (int i=0; i<scheduls.length(); i++) {
+                        JSONObject schedul = scheduls.getJSONObject(i);
+                        GlobalData.mSchedul.add(Scheduler.getschedulFromJson(schedul));
+                    }
+                    onResume();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        ServerUtil.all_pay(mContext, new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONArray pays = json.getJSONArray("pays");
+                    for (int i=0; i<pays.length(); i++) {
+                        JSONObject pay = pays.getJSONObject(i);
+                        GlobalData.mSchedul.add(Scheduler.getschedulFromJson(pay));
+                    }
+                    onResume();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 

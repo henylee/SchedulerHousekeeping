@@ -1,5 +1,8 @@
 package tje.co.kr.schedulerhousekeeping.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +17,21 @@ public class Scheduler implements Serializable {
     private String content;
     private Calendar dateTime;
     private int user_id;
+
+    public static Scheduler getschedulFromJson(JSONObject jsonObject) {
+        Scheduler s = new Scheduler();
+
+        try {
+            s.title = jsonObject.getString("title");
+            s.content = jsonObject.getString("content");
+            s.dateTime=Calendar.getInstance();
+            s.dateTime.setTimeInMillis(jsonObject.getLong("date"));
+            s.user_id = jsonObject.getInt("user_id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
 
     public Scheduler() {
 

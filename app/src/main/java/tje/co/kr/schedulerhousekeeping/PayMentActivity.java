@@ -3,6 +3,7 @@ package tje.co.kr.schedulerhousekeeping;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,12 +14,16 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
+import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
+import tje.co.kr.schedulerhousekeeping.util.ServerUtil;
 
 public class PayMentActivity extends BaseActivity {
 
@@ -89,9 +94,16 @@ public class PayMentActivity extends BaseActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-                GlobalData.mPay.add(new Payment(storeEdt.getText().toString(), Integer.parseInt(costEdt.getText().toString()), mReservationDate));
-                finish();
+
+                ServerUtil.add_pay(mContext, storeEdt.getText().toString(), spiner1.getSelectedItem().toString(), mReservationDate, Integer.parseInt(costEdt.getText().toString()), ContextUtil.getId(mContext), new ServerUtil.JsonResponseHandler() {
+                    @Override
+                    public void onResponse(JSONObject json) {
+                        Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        GlobalData.mPay.add(new Payment(storeEdt.getText().toString(), Integer.parseInt(costEdt.getText().toString()), mReservationDate, ContextUtil.getId(mContext)));
+                        finish();
+                    }
+                });
+
             }
         });
 

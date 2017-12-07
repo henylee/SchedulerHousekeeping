@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
+import tje.co.kr.schedulerhousekeeping.util.ContextUtil;
 import tje.co.kr.schedulerhousekeeping.util.GlobalData;
 
 public class MySMSReceiver extends BroadcastReceiver {
@@ -69,7 +70,7 @@ public class MySMSReceiver extends BroadcastReceiver {
                     Calendar temp = Calendar.getInstance();
                     temp.setTime(date);
 
-                    GlobalData.mPay.add(new Payment(store, cost,temp));
+                    GlobalData.mPay.add(new Payment(store, cost,temp, ContextUtil.getId(context)));
 
                     MainActivity.act.refreshPayList();
 

@@ -234,7 +234,91 @@ public class ServerUtil {
     }
 
     public static void all_schedul(final Context context, final JsonResponseHandler handler) {
-        String url = BASE_URL+"/get_my_all_schedul";
+        String url = BASE_URL+"/today_schedul";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("user_id", ContextUtil.getUserId(context));
+
+        AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.i("RESPONSE", response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    public static void add_pay(final Context context, String store, String content, Calendar dateTime, int cost, int user_id, final JsonResponseHandler handler) {
+        String url = BASE_URL+"/insert_pay";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("store", store);
+        data.put("content", content);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sdfTxt = sdf.format(dateTime.getTime());
+        data.put("date",sdfTxt);
+        data.put("cost", cost+"");
+        data.put("user_id", user_id+"");
+
+        AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.i("RESPONSE", response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    public static void all_pay(final Context context, final JsonResponseHandler handler) {
+        String url = BASE_URL+"/all_pay";
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
         Map<String, String> data = new HashMap<String, String>();
