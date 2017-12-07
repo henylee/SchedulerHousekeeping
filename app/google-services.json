@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1093483984306",
+    "firebase_url": "https://schk-7a8df.firebaseio.com",
+    "project_id": "schk-7a8df",
+    "storage_bucket": "schk-7a8df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093483984306:android:c448dbdbce075249",
+        "android_client_info": {
+          "package_name": "tje.co.kr.schedulerhousekeeping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093483984306-09rlvvc68kohmpv6a2u8dhbe599je2b9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tje.co.kr.schedulerhousekeeping",
+            "certificate_hash": "115ad4716b9b34740597f6289f502260d2be41cb"
+          }
+        },
+        {
+          "client_id": "1093483984306-j66rv49piu6f6gnt5ntj3fdjf1r6msj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD87K7RYl2SF6siOAboaTRd8LWur3BAGb8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093483984306-j66rv49piu6f6gnt5ntj3fdjf1r6msj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
