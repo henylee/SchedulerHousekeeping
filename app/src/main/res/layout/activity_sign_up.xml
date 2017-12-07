@@ -17,7 +17,7 @@
             android:id="@+id/idEdt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="아이디를 입력"
+            android:hint="아이디 입력"
             android:singleLine="true"
             android:layout_weight="5"/>
 

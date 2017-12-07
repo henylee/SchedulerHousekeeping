@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayout serviceLayout2;
     private android.widget.ListView todaySchedulList;
     CalendarAdapter mCalendar;
-    List<Scheduler> mScheduleList = new ArrayList<>();
+    List mScheduleList = new ArrayList<>();
     private ListView todayPayList;
     public PayMentAdapter mPayAdapter;
     private Fab fab;
@@ -298,7 +298,13 @@ public class MainActivity extends BaseActivity {
         ServerUtil.all_schedul(mContext, new ServerUtil.JsonResponseHandler() {
             @Override
             public void onResponse(JSONObject json) {
-                Log.d("할일", json.toString());
+                try {
+                    JSONObject scheduls= json.getJSONObject("scheduls");
+                    String id = scheduls.getString("user_id");
+                    Log.d("유저", id.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
