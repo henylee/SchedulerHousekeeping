@@ -99,7 +99,7 @@ public class PayMentActivity extends BaseActivity {
                     @Override
                     public void onResponse(JSONObject json) {
                         Toast.makeText(mContext, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-                        GlobalData.mPay.add(new Payment(storeEdt.getText().toString(), Integer.parseInt(costEdt.getText().toString()), mReservationDate, ContextUtil.getId(mContext)));
+                        GlobalData.mPay.add(new Payment(storeEdt.getText().toString(), Integer.parseInt(costEdt.getText().toString()),spiner1.getSelectedItem().toString(), mReservationDate, ContextUtil.getId(mContext)));
                         finish();
                     }
                 });

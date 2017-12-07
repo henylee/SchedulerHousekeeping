@@ -69,10 +69,10 @@ public class MainActivity extends BaseActivity {
     private LinearLayout serviceLayout2;
     private android.widget.ListView todaySchedulList;
     CalendarAdapter mCalendar;
-    List mScheduleList = new ArrayList<>();
-    List mpayList = new ArrayList<>();
+    List<Scheduler> mScheduleList = new ArrayList<>();
+    List<Payment> mPayList = new ArrayList<>();
     private ListView todayPayList;
-    public PayMentAdapter mPayAdapter;
+    PayMentAdapter mPayAdapter;
     private Fab fab;
     private com.gordonwong.materialsheetfab.DimOverlayFrameLayout overlay;
     private LinearLayout addDayLayout;
@@ -278,8 +278,9 @@ public class MainActivity extends BaseActivity {
         super.onResume();
 
         mScheduleList.clear();
-        mpayList.clear();
+        mPayList.clear();
         Calendar today = Calendar.getInstance();
+
         for (Scheduler s : GlobalData.mSchedul) {
             if (s.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && s.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && s.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
 
@@ -288,9 +289,10 @@ public class MainActivity extends BaseActivity {
         }
 
         for (Payment p : GlobalData.mPay) {
+            Log.d("지출", p.toString());
             if (p.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && p.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && p.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
 
-                mpayList.add(p);
+                mPayList.add(p);
             }
         }
 
@@ -303,7 +305,7 @@ public class MainActivity extends BaseActivity {
         mCalendar = new CalendarAdapter(mContext, mScheduleList);
         todaySchedulList.setAdapter(mCalendar);
         todaySchedulList.setEmptyView(scheduleEmptyLayout);
-        mPayAdapter = new PayMentAdapter(mContext, mpayList);
+        mPayAdapter = new PayMentAdapter(mContext, mPayList);
         todayPayList.setAdapter(mPayAdapter);
         emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
 
@@ -330,7 +332,7 @@ public class MainActivity extends BaseActivity {
                     JSONArray pays = json.getJSONArray("pays");
                     for (int i=0; i<pays.length(); i++) {
                         JSONObject pay = pays.getJSONObject(i);
-                        GlobalData.mSchedul.add(Scheduler.getschedulFromJson(pay));
+                        GlobalData.mPay.add(Payment.getPayFromJson(pay));
                     }
                     onResume();
                 } catch (JSONException e) {

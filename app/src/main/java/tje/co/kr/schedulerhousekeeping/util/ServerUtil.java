@@ -238,7 +238,7 @@ public class ServerUtil {
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
         Map<String, String> data = new HashMap<String, String>();
-        data.put("user_id", ContextUtil.getUserId(context));
+        data.put("user_id", ContextUtil.getId(context)+"");
 
         AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
 
@@ -322,7 +322,7 @@ public class ServerUtil {
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
         Map<String, String> data = new HashMap<String, String>();
-        data.put("user_id", ContextUtil.getUserId(context));
+        data.put("user_id", ContextUtil.getId(context)+"");
 
         AsyncHttpRequest.post(context, url,  data, false, new AsyncHttpRequest.HttpResponseHandler() {
 

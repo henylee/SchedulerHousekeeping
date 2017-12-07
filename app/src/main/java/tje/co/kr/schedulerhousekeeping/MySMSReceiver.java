@@ -70,7 +70,7 @@ public class MySMSReceiver extends BroadcastReceiver {
                     Calendar temp = Calendar.getInstance();
                     temp.setTime(date);
 
-                    GlobalData.mPay.add(new Payment(store, cost,temp, ContextUtil.getId(context)));
+                    GlobalData.mPay.add(new Payment(store, cost,"기타", temp, ContextUtil.getId(context)));
 
                     MainActivity.act.refreshPayList();
 
