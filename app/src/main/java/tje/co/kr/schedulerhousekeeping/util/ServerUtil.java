@@ -281,7 +281,7 @@ public class ServerUtil {
         data.put("content", content);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String sdfTxt = sdf.format(dateTime.getTime());
-        data.put("date",sdfTxt);
+        data.put("dateTime",sdfTxt);
         data.put("cost", cost+"");
         data.put("user_id", user_id+"");
 
