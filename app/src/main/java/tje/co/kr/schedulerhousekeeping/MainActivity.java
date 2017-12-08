@@ -277,41 +277,10 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        mScheduleList.clear();
-        mPayList.clear();
-        Calendar today = Calendar.getInstance();
-
-        for (Scheduler s : GlobalData.mSchedul) {
-            if (s.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && s.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && s.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
-
-                mScheduleList.add(s);
-            }
-        }
-
-        for (Payment p : GlobalData.mPay) {
-            Log.d("지출", p.toString());
-            if (p.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && p.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && p.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
-
-                mPayList.add(p);
-            }
-        }
-
-        mCalendar.notifyDataSetChanged();
-        mPayAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void setValues() {
-        mCalendar = new CalendarAdapter(mContext, mScheduleList);
-        todaySchedulList.setAdapter(mCalendar);
-        todaySchedulList.setEmptyView(scheduleEmptyLayout);
-        mPayAdapter = new PayMentAdapter(mContext, mPayList);
-        todayPayList.setAdapter(mPayAdapter);
-        emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
-
         ServerUtil.all_schedul(mContext, new ServerUtil.JsonResponseHandler() {
             @Override
             public void onResponse(JSONObject json) {
+                GlobalData.mSchedul.clear();
                 try {
                     JSONArray scheduls = json.getJSONArray("scheduls");
                     for (int i=0; i<scheduls.length(); i++) {
@@ -322,25 +291,55 @@ public class MainActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                mScheduleList.clear();
+                Calendar today = Calendar.getInstance();
+                for (Scheduler s : GlobalData.mSchedul) {
+                    if (s.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && s.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && s.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
+
+                        mScheduleList.add(s);
+                    }
+                }
+                mCalendar.notifyDataSetChanged();
             }
         });
 
         ServerUtil.all_pay(mContext, new ServerUtil.JsonResponseHandler() {
             @Override
             public void onResponse(JSONObject json) {
+                GlobalData.mPay.clear();
                 try {
                     JSONArray pays = json.getJSONArray("pays");
                     for (int i=0; i<pays.length(); i++) {
                         JSONObject pay = pays.getJSONObject(i);
                         GlobalData.mPay.add(Payment.getPayFromJson(pay));
                     }
-                    onResume();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                mPayList.clear();
+                Calendar today = Calendar.getInstance();
+                for (Payment p : GlobalData.mPay) {
+                    Log.d("지출", p.toString());
+                    if (p.getDateTime().get(Calendar.YEAR) == today.get(Calendar.YEAR) && p.getDateTime().get(Calendar.MONTH) == today.get(Calendar.MONTH) && p.getDateTime().get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
 
+                        mPayList.add(p);
+
+                    }
+                }
+                mPayAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void setValues() {
+        mCalendar = new CalendarAdapter(mContext, mScheduleList);
+        todaySchedulList.setAdapter(mCalendar);
+        todaySchedulList.setEmptyView(scheduleEmptyLayout);
+        mPayAdapter = new PayMentAdapter(mContext, mPayList);
+        todayPayList.setAdapter(mPayAdapter);
+        emptyListTxt.setTextColor(Color.parseColor("#ffffff"));
 
         boolean autoLogin = ContextUtil.getAutoLogin(mContext);
         autoLoginCBox.setChecked(autoLogin);

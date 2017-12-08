@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import tje.co.kr.schedulerhousekeeping.adapter.PayMentAdapter;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
@@ -27,7 +30,7 @@ import tje.co.kr.schedulerhousekeeping.util.ServerUtil;
 
 public class PayMentActivity extends BaseActivity {
 
-    Calendar mReservationDate = Calendar.getInstance();
+    Calendar mReservationDate = Calendar.getInstance(Locale.KOREA);
     private android.widget.RadioButton rbBtn1;
     private android.widget.RadioButton rbBtn2;
     private android.widget.RadioGroup payGroup;
@@ -62,7 +65,6 @@ public class PayMentActivity extends BaseActivity {
                         mReservationDate.set(Calendar.MINUTE, minute);
 
                         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-
                         selectTimeBtn.setText(sdf.format(mReservationDate.getTime()));
 
                     }
@@ -94,6 +96,8 @@ public class PayMentActivity extends BaseActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mReservationDate.add(Calendar.HOUR_OF_DAY, -9);
 
                 ServerUtil.add_pay(mContext, storeEdt.getText().toString(), spiner1.getSelectedItem().toString(), mReservationDate, Integer.parseInt(costEdt.getText().toString()), ContextUtil.getId(mContext), new ServerUtil.JsonResponseHandler() {
                     @Override
