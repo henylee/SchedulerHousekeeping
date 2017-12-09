@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import tje.co.kr.schedulerhousekeeping.R;
 import tje.co.kr.schedulerhousekeeping.data.Payment;
@@ -51,6 +52,7 @@ public class TodayPayAdapter extends ArrayAdapter<Payment> {
 
         storeNameTxt.setText(data.getStoreName());
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("Greenwich"));
         timeTxt.setText(sdf.format(data.getDateTime().getTime()));
         String temp = String.format(Locale.KOREA, "%,d원", data.getCost());
         costTxt.setText(temp);

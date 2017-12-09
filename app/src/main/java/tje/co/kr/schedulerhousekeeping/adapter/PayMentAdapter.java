@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import tje.co.kr.schedulerhousekeeping.MySMSReceiver;
 import tje.co.kr.schedulerhousekeeping.R;
@@ -53,6 +54,7 @@ public class PayMentAdapter extends ArrayAdapter<Payment> {
 
         storeNameTxt.setText(data.getStoreName());
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("Greenwich"));
         timeTxt.setText(sdf.format(data.getDateTime().getTime()));
         String temp = String.format(Locale.KOREA, "%,d원", data.getCost());
         costTxt.setText(temp);

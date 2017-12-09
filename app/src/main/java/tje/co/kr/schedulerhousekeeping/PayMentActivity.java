@@ -97,7 +97,7 @@ public class PayMentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                mReservationDate.add(Calendar.HOUR_OF_DAY, -9);
+//                mReservationDate.add(Calendar.HOUR_OF_DAY, -9);
 
                 ServerUtil.add_pay(mContext, storeEdt.getText().toString(), spiner1.getSelectedItem().toString(), mReservationDate, Integer.parseInt(costEdt.getText().toString()), ContextUtil.getId(mContext), new ServerUtil.JsonResponseHandler() {
                     @Override
