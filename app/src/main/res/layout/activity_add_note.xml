@@ -20,11 +20,8 @@
         android:layout_height="370dp"
         app:datePicker="true"
         app:headerColor="@color/colorPrimary"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:selectionColor="@color/colorAccent"
-        app:todayLabelColor="@color/colorPrimaryDark" />
+        app:selectionColor="@color/black"
+        app:todayLabelColor="@color/white" />
 
     <EditText
         android:id="@+id/noteEditText"
@@ -41,6 +38,6 @@
         android:layout_height="50dp"
         android:text="save"
         android:textColor="@android:color/white"
-        app:backgroundTint="@color/colorAccent"/>
+        app:backgroundTint="@color/black"/>
 
 </LinearLayout>
