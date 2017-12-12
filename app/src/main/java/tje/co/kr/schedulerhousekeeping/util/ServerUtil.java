@@ -18,7 +18,7 @@ import java.util.Map;
 public class ServerUtil {
 
 //    서버와 통신을 하기 위한 ip주소
-    private final static String BASE_URL = "http://192.168.20.17:8080/tje";
+    private final static String BASE_URL = "http://13.125.69.70:8080/SHK";
 
     public interface JsonResponseHandler {
         void onResponse(JSONObject json);
